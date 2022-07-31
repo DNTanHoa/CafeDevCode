@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Database.Configurations
 {
-    public class VideoConfiguration
+    public class VideoConfiguration : IEntityTypeConfiguration<Video>
     {
+        public void Configure(EntityTypeBuilder<Video> builder)
+        {
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).UseIdentityColumn();
+        }
     }
 }

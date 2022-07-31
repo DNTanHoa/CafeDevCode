@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Database.Configurations
 {
-    public class TagConfiguration
+    public class TagConfiguration : IEntityTypeConfiguration<Tag>
     {
+        public void Configure(EntityTypeBuilder<Tag> builder)
+        {
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.Id).UseIdentityColumn();
+        }
     }
 }
