@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.Category
 {
-    internal class CreateCategory
+    public class CreateCategory
     {
     }
 }

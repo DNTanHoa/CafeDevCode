@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.PlayList
 {
-    internal class DeletePalyListHandler
+    public class DeletePalyListHandler
     {
     }
 }

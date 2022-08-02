@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Queries.Implement
 {
-    internal class CategoryQueries
+    public class CategoryQueries
     {
     }
 }

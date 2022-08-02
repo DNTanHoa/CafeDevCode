@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.Post
 {
-    internal class CreatePostHandler
+    public class CreatePostHandler
     {
     }
 }

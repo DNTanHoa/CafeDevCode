@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.Post
 {
-    internal class UpdatePost
+    public class UpdatePost
     {
     }
 }

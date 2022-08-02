@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.Tag
 {
-    internal class UpdateTagHandler
+    public class UpdateTagHandler
     {
     }
 }

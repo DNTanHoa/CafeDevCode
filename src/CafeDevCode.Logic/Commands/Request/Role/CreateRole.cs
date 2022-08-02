@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.Role
 {
-    internal class CreateRole
+    public class CreateRole
     {
     }
 }

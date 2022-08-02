@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Queries.Implement
 {
-    internal class TagQueries
+    public class TagQueries
     {
     }
 }

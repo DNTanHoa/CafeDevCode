@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.PlayList
 {
-    internal class CreatePlayList
+    public class CreatePlayList
     {
     }
 }

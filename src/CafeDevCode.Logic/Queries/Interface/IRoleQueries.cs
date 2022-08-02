@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Queries.Interface
 {
-    internal interface IRoleQueries
+    public interface IRoleQueries
     {
     }
 }

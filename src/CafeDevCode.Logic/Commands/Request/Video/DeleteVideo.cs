@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.Video
 {
-    internal class DeleteVideo
+    public class DeleteVideo
     {
     }
 }

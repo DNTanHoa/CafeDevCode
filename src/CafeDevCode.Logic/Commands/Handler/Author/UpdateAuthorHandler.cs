@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.Author
 {
-    internal class UpdateAuthorHandler
+    public class UpdateAuthorHandler
     {
     }
 }

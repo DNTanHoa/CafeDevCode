@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.User
 {
-    internal class AssignToRoles
+    public class AssignToRoles
     {
     }
 }

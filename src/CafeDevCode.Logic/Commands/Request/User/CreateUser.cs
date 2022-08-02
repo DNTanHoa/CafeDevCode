@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.User
 {
-    internal class CreateUser
+    public class CreateUser
     {
     }
 }

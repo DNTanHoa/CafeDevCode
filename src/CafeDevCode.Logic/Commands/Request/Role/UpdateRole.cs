@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request
 {
-    internal class UpdateRole
+    public class UpdateRole
     {
     }
 }

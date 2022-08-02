@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.Post
 {
-    internal class DeletePostHandler
+    public class DeletePostHandler
     {
     }
 }

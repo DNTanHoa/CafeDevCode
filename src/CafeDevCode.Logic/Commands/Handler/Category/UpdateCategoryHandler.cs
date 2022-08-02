@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler.Category
 {
-    internal class UpdateCategoryHandler
+    public class UpdateCategoryHandler
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request.Tag
 {
-    internal class DeleteTag
+    public class DeleteTag
     {
     }
 }
