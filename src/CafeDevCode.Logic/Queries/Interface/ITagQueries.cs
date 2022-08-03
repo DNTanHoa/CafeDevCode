@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CafeDevCode.Common.Shared.Model;
+using CafeDevCode.Logic.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,11 @@ namespace CafeDevCode.Logic.Queries.Interface
 {
     public interface ITagQueries
     {
+        BasePagingData<TagSummaryModel> GetPaging(BaseQuery query);
+        List<TagSummaryModel> GetAll();
+        TagDetailModel? GetDetail(int id);
+        Task<TagDetailModel?> GetDetailAsync(int id);
+        Task<BasePagingData<TagSummaryModel>> GetPagingAsync(BaseQuery query);
+        Task<List<TagSummaryModel>> GetAllAsync();
     }
 }

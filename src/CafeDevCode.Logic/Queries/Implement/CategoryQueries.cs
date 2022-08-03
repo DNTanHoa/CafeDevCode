@@ -40,7 +40,7 @@ namespace CafeDevCode.Logic.Queries.Implement
 
         public CategoryDetailModel? GetDetail(int id)
         {
-            var category = database.Authors.FirstOrDefault(x => x.Id == id);
+            var category = database.Categories.FirstOrDefault(x => x.Id == id);
 
             if (category != null)
             {
@@ -60,7 +60,22 @@ namespace CafeDevCode.Logic.Queries.Implement
 
         public Task<CategoryDetailModel?> GetDetailAsync(int id)
         {
-            throw new NotImplementedException();
+            CategoryDetailModel? result = null;
+            var category = database.Categories.FirstOrDefault(x => x.Id == id);
+
+            if (category != null)
+            {
+                result = mapper.Map<CategoryDetailModel>(category);
+
+                var categoryPostIds = database.PostCategories.Where(x => x.CategoryId == id)
+                    .Select(x => x.PostId);
+
+                var posts = database.Post.Where(x => categoryPostIds.Contains(x.Id));
+
+                result.Posts = posts.ToList();
+            }
+
+            return Task.FromResult(result);
         }
 
         public BasePagingData<CategorySummaryModel> GetPaging(BaseQuery query)
@@ -74,15 +89,15 @@ namespace CafeDevCode.Logic.Queries.Implement
                 .Select(x => mapper.Map<CategorySummaryModel>(x))
                 .ToList();
 
-            var authorCount = database.Authors.Count();
+            var categoryCount = database.Authors.Count();
 
             return new BasePagingData<CategorySummaryModel>()
             {
                 Items = categories,
                 PageSize = query.PageSize ?? 1,
                 PageIndex = query.PageIndex ?? 20,
-                TotalItem = authorCount,
-                TotalPage = (int)Math.Ceiling((double)authorCount / (query.PageSize ?? 20))
+                TotalItem = categoryCount,
+                TotalPage = (int)Math.Ceiling((double)categoryCount / (query.PageSize ?? 20))
             };
         }
 
@@ -97,15 +112,15 @@ namespace CafeDevCode.Logic.Queries.Implement
                 .Select(x => mapper.Map<CategorySummaryModel>(x))
                 .ToList();
 
-            var authorCount = database.Authors.Count();
+            var categoryCount = database.Authors.Count();
 
             return Task.FromResult(new BasePagingData<CategorySummaryModel>()
             {
                 Items = categories,
                 PageSize = query.PageSize ?? 1,
                 PageIndex = query.PageIndex ?? 20,
-                TotalItem = authorCount,
-                TotalPage = (int)Math.Ceiling((double)authorCount / (query.PageSize ?? 20))
+                TotalItem = categoryCount,
+                TotalPage = (int)Math.Ceiling((double)categoryCount / (query.PageSize ?? 20))
             });
         }
     }
