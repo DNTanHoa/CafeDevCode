@@ -27,5 +27,13 @@ namespace CafeDevCode.Common.Shared.Model
             this.LastUpdatedAt = date;
             return this;
         }
+
+        public BaseEntity MarkAsDelete(string user, DateTime date)
+        {
+            this.IsDeleted = true;
+            this.LastUpdatedBy = user;
+            this.LastUpdatedAt = date;
+            return this;
+        }
     }
 }
