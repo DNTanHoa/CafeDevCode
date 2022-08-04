@@ -45,12 +45,17 @@ namespace CafeDevCode.Logic.Queries.Implement
             {
                 var result = mapper.Map<TagDetailModel>(tag);
 
-                var tagPostIds = database.PostCategories.Where(x => x.CategoryId == id)
+                var tagPostIds = database.PostTags.Where(x => x.TagId == id)
                     .Select(x => x.PostId);
+                var tagVideoIds = database.VideoTags.Where(x => x.TagId == id)
+                    .Select(x => x.VideoId);
 
                 var posts = database.Post.Where(x => tagPostIds.Contains(x.Id));
+                var videos = database.Videos.Where(x => tagVideoIds.Contains(x.Id));
 
                 result.Posts = posts.ToList();
+                result.Videos = videos.ToList();
+
                 return result;
             }
 
@@ -66,12 +71,16 @@ namespace CafeDevCode.Logic.Queries.Implement
             {
                 result = mapper.Map<TagDetailModel>(tag);
 
-                var tagPostIds = database.PostCategories.Where(x => x.CategoryId == id)
+                var tagPostIds = database.PostTags.Where(x => x.TagId == id)
                     .Select(x => x.PostId);
+                var tagVideoIds = database.VideoTags.Where(x => x.TagId == id)
+                    .Select(x => x.VideoId);
 
                 var posts = database.Post.Where(x => tagPostIds.Contains(x.Id));
+                var videos = database.Videos.Where(x => tagVideoIds.Contains(x.Id));
 
                 result.Posts = posts.ToList();
+                result.Videos = videos.ToList();
             }
 
             return Task.FromResult(result);
@@ -87,15 +96,15 @@ namespace CafeDevCode.Logic.Queries.Implement
                 .Select(x => mapper.Map<TagSummaryModel>(x))
                 .ToList();
 
-            var categoryCount = database.Authors.Count();
+            var tagCount = database.Authors.Count();
 
             return new BasePagingData<TagSummaryModel>()
             {
                 Items = tags,
                 PageSize = query.PageSize ?? 1,
                 PageIndex = query.PageIndex ?? 20,
-                TotalItem = categoryCount,
-                TotalPage = (int)Math.Ceiling((double)categoryCount / (query.PageSize ?? 20))
+                TotalItem = tagCount,
+                TotalPage = (int)Math.Ceiling((double)tagCount / (query.PageSize ?? 20))
             };
         }
 
@@ -109,15 +118,15 @@ namespace CafeDevCode.Logic.Queries.Implement
                 .Select(x => mapper.Map<TagSummaryModel>(x))
                 .ToList();
 
-            var categoryCount = database.Authors.Count();
+            var tagCount = database.Authors.Count();
 
             return Task.FromResult(new BasePagingData<TagSummaryModel>()
             {
                 Items = tags,
                 PageSize = query.PageSize ?? 1,
                 PageIndex = query.PageIndex ?? 20,
-                TotalItem = categoryCount,
-                TotalPage = (int)Math.Ceiling((double)categoryCount / (query.PageSize ?? 20))
+                TotalItem = tagCount,
+                TotalPage = (int)Math.Ceiling((double)tagCount / (query.PageSize ?? 20))
             });
         }
     }

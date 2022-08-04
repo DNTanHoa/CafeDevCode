@@ -26,4 +26,8 @@
     <ProjectReference Include="..\CafeDevCode.Common.Shared\CafeDevCode.Common.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

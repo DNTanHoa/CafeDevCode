@@ -11,7 +11,7 @@ namespace CafeDevCode.Logic.Shared.Models
     {
         public List<Tag> Tags { get; set; } = new List<Tag>();
         public List<Category> Categories { get; set; } = new List<Category>();
-        public List<PostRelateModel> Relates { get; set; } = new List<PostRelateModel>();
+        public List<Post> Relates { get; set; } = new List<Post>();
         public Author? Author { get; set; }
     }
 }
