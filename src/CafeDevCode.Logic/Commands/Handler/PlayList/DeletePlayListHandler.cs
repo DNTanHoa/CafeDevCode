@@ -6,40 +6,40 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler
 {
-    public class DeleteCategoryHandler 
-        : IRequestHandler<DeleteCategory, BaseCommandResult>
+    public class DeletePlayListHandler 
+        : IRequestHandler<DeletePlayList, BaseCommandResult>
     {
         private readonly IMapper mapper;
         private readonly AppDatabase database;
 
-        public DeleteCategoryHandler(IMapper mapper,
+        public DeletePlayListHandler(IMapper mapper,
             AppDatabase database)
         {
             this.mapper = mapper;
             this.database = database;
         }
 
-        public Task<BaseCommandResult> Handle(DeleteCategory request,
+        public Task<BaseCommandResult> Handle(DeletePlayList request,
             CancellationToken cancellationToken)
         {
             var result = new BaseCommandResult();
 
             try
             {
-                var category = database.Categories.FirstOrDefault(x => x.Id == request.Id);
+                var playList = database.PlayLists.FirstOrDefault(x => x.Id == request.Id);
 
-                if (category != null)
+                if (playList != null)
                 {
-                    category.MarkAsDelete(request.UserName ?? string.Empty, AppGlobal.SysDateTime);
+                    playList.MarkAsDelete(request.UserName ?? string.Empty, AppGlobal.SysDateTime);
 
-                    database.Update(category);
+                    database.Update(playList);
                     database.SaveChanges();
 
                     result.Success = true;
                 }
                 else
                 {
-                    result.Messages = $"Can't not find Category with id is {request.Id}";
+                    result.Messages = $"Can't not find play list with id is {request.Id}";
                 }
             }
             catch (Exception ex)

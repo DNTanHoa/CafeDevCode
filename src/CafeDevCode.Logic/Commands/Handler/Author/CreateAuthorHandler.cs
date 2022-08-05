@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler
 {
-    public class CreateAuthorHandler : IRequestHandler<CreateAuthor, BaseCommandResultWithData<Author>>
+    public class CreateAuthorHandler 
+        : IRequestHandler<CreateAuthor, BaseCommandResultWithData<Author>>
     {
         private readonly IMapper mapper;
         private readonly AppDatabase database;
