@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CafeDevCode.Logic.Commands.Request.Role
+namespace CafeDevCode.Logic.Commands.Request
 {
     public class DeleteRole
     {

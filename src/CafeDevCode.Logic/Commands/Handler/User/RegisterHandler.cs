@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CafeDevCode.Logic.Commands.Handler.User
+namespace CafeDevCode.Logic.Commands.Handler
 {
     public class RegisterHandler
     {
