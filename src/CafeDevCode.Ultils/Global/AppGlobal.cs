@@ -12,5 +12,6 @@ namespace CafeDevCode.Ultils.Global
 
         public static string InvalidUserName => "Tên đăng nhập không hợp lệ";
         public static string InvalidPassWord => "Mật khẩu không hợp lệ";
+        public static string DefaultSuccessMessage => "Thao tác thành công";
     }
 }

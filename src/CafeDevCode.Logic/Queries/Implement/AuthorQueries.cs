@@ -26,6 +26,7 @@ namespace CafeDevCode.Logic.Queries.Implement
         public List<AuthorSummaryModel> GetAll()
         {
             return database.Authors
+                .Where(x => x.IsDeleted != true)
                 .Select(x => mapper.Map<AuthorSummaryModel>(x))
                 .ToList();
         }

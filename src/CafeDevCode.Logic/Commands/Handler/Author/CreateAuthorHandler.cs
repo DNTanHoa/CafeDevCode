@@ -36,6 +36,8 @@ namespace CafeDevCode.Logic.Commands.Handler
                 author.SetCreateInfo(request.UserName ?? string.Empty, AppGlobal.SysDateTime);
 
                 database.SaveChanges();
+
+                result.Data = author;
                 result.Success = true;
             }
             catch(Exception ex)
