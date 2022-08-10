@@ -39,7 +39,7 @@ namespace CafeDevCode.Logic.Commands.Handler
                 }
                 else
                 {
-                    result.Messages = $"Can't not find Category with id is {request.Id}";
+                    result.Messages = $"Can't not find category with id is {request.Id}";
                 }
             }
             catch (Exception ex)

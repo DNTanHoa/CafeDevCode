@@ -60,8 +60,26 @@
                     <div class="mb-2">
                         <label class="form-label"><b>Parent:</b></label>
                         <div class="input-group mb-3">
-                            <input class="form-control" asp-for="ParentId"/>
-                            <span class="input-group-text btn btn-success"><i class="fa-solid fa-plus"></i></span>
+                            <select class="form-select select2" id="multiple-select-related-posts" asp-for="ParentId"
+                                data-placeholder="Parent">
+                                @{
+                                    var categories = categoryQueries.GetAll();
+                                    if(categories != null)
+                                        {
+                                            foreach(var category in categories)
+                                            {
+                                                if (Model.ParentId == category.Id)
+                                                {
+                                                    <option selected value="@category.Id">@category.Title</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@category.Id">@category.Title</option>
+                                                }
+                                            }
+                                        }
+                                    }
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -75,6 +93,16 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <button type="button" class="btn btn-primary w-100" onclick="onSaveChange()"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                </div>
+                <div class="col-6 col-md-2">
+                    <a class="btn btn-dark w-100" asp-action="Index"><i class="fa-solid fa-xmark"></i> Thoát</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -85,10 +113,11 @@
             url: '@Url.Action("SaveChange")',
             data: {
                 Id: $('#Id').val(),
-                FullName: $('#FullName').val(),
-                Phone: $('#Phone').val(),
-                Email: $('#Email').val(),
-                ShortName: $('#ShortName').val()
+                Title: $('#Title').val(),
+                Keywords: $('#Keywords').val(),
+                UrlMeta: $('#UrlMeta').val(),
+                Description: $('#Description').val(),
+                ParentId: $('#ParentId').val()
             },
             success: (res) => {
                 if (res.success === true) {

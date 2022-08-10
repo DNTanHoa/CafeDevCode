@@ -33,7 +33,9 @@ namespace CafeDevCode.Logic.Commands.Handler
                 category.SetCreateInfo(request.UserName ?? string.Empty, AppGlobal.SysDateTime);
 
                 database.SaveChanges();
+
                 result.Success = true;
+                result.Data = category;
             }
             catch (Exception ex)
             {

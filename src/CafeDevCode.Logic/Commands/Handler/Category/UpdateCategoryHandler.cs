@@ -36,6 +36,7 @@ namespace CafeDevCode.Logic.Commands.Handler
                     database.SaveChanges();
 
                     result.Success = true;
+                    result.Data = category;
                 }
                 else
                 {

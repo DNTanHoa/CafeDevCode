@@ -16,7 +16,13 @@ namespace CafeDevCode.Website.Models
         {
             return new CreateCategory()
             {
-
+                Id = this.Id,
+                Title = this.Title,
+                Description = this.Description,
+                UrlMeta = this.UrlMeta,
+                Keywords = this.Keywords,
+                SortIndex = this.SortIndex,
+                ParentId = this.ParentId,
             };
         }
 
@@ -24,7 +30,13 @@ namespace CafeDevCode.Website.Models
         {
             return new UpdateCategory()
             {
-
+                Id = this.Id,
+                Title = this.Title,
+                Description = this.Description,
+                UrlMeta = this.UrlMeta,
+                Keywords = this.Keywords,
+                SortIndex = this.SortIndex,
+                ParentId = this.ParentId,
             };
         }
     }

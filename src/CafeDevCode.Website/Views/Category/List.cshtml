@@ -1,5 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using CafeDevCode.Database.Entities
+@using CafeDevCode.Logic.Shared.Models
+@model IEnumerable<CategorySummaryModel>
+@if(Model != null &&
+    Model.Any())
+{
+    foreach(var category in Model)
+    {
+        <tr>
+            <td>@category.Id</td>
+            <td>@category.Title</td>
+            <td>@category.Keywords</td>
+            <td>@category.Description</td>
+            <td>@category.SortIndex</td>
+            <td>
+                <a class="btn btn-success d-inline" asp-action="Detail" asp-controller="Category" asp-route-id="@category.Id">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="btn btn-danger d-inline ms-2" onclick="onDelete(@category.Id)"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+        </tr>
+    }
+} 

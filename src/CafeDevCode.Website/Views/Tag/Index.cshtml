@@ -1,18 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Admin - Quản lý tác giả - Cafe Dev Code";
+    ViewData["Title"] = "Admin - Quản lý danh mục - Cafe Dev Code";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Danh sách tác giả</h1>
+    <h1 class="mt-4">Thẻ</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a aasp-action="Index">Tác giả</a></li>
-        <li class="breadcrumb-item active">Danh sách</li>
+        <li class="breadcrumb-item"><a aasp-action="Index">Danh mục</a></li>
+        <li class="breadcrumb-item active">Thẻ</li>
     </ol>
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Danh sách tác giả
+            Thẻ
         </div>
         <div class="card-body">
             <div class="row">
@@ -20,7 +19,7 @@
                     <a class="w-100 btn btn-success" onclick="onLoad()"><i class="fa-solid fa-arrows-rotate"></i> Tải</a>
                 </div>
                 <div class="col-6 col-md-2">
-                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Author" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
+                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Category" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
                 </div>
             </div>
             <hr class="my-2"/>
@@ -28,23 +27,23 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>Điện thoại</th>
-                        <th>Tên khác</th>
+                        <th>Tiêu đề</th>
+                        <th>Từ khóa</th>
+                        <th>Mô tả</th>
+                        <th>Meta</th>
                         <th>Thao tác</th>
                     </tr>
                 </thead>
-                <tbody id="author-list-body">
+                <tbody id="tag-list-body">
 
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>Điện thoại</th>
-                        <th>Tên khác</th>
+                        <th>Tiêu đề</th>
+                        <th>Từ khóa</th>
+                        <th>Mô tả</th>
+                        <th>Meta</th>
                         <th>Thao tác</th>
                     </tr>
                 </tfoot>
@@ -59,8 +58,8 @@
             type: 'GET',
             url: '@Url.Action("List")',
             success: (res) => {
-                $('#author-list-body').empty();
-                $('#author-list-body').html(res);
+                $('#category-list-body').empty();
+                $('#category-list-body').html(res);
             }
         })
     };
