@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request
 {
-    public class CreateCategory : Category,
+    public class CreateCategory : CategoryDetailModel,
         IIdentifiedCommand,
         IRequest<BaseCommandResultWithData<Category>>
     {

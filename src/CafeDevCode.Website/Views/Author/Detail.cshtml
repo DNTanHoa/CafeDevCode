@@ -2,7 +2,7 @@
 @{
     if(Model.Id > 0)
     {
-         ViewData["Title"] = $"Admin - {Model.FullName} - Cafe Dev Code";
+        ViewData["Title"] = $"Admin - {Model.FullName} - Cafe Dev Code";
     }
     else
     {
@@ -36,13 +36,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-2">
-                      <label class="form-label">Họ và tên:</label>
+                      <label class="form-label" style="font-weight: bold;">Họ và tên:</label>
                       <input class="form-control" type="text" asp-for="FullName">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-2">
-                      <label class="form-label">Email:</label>
+                      <label class="form-label" style="font-weight: bold;">Email:</label>
                       <input class="form-control" type="email" asp-for="Email">
                     </div>
                 </div>
@@ -50,13 +50,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-2">
-                      <label class="form-label">Điện thoại:</label>
+                      <label class="form-label" style="font-weight: bold;">Điện thoại:</label>
                       <input class="form-control" type="number" asp-for="Phone">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-2">
-                      <label class="form-label">Tên khác:</label>
+                      <label class="form-label" style="font-weight: bold;">Tên khác:</label>
                       <input class="form-control" type="text" asp-for="ShortName">
                     </div>
                 </div>

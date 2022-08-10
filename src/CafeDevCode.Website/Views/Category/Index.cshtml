@@ -1,5 +1,106 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Admin - Quản lý danh mục - Cafe Dev Code";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Danh mục bài viết</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a aasp-action="Index">Danh mục</a></li>
+        <li class="breadcrumb-item active">Danh mục bài viết</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Danh mục bài viết
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <a class="w-100 btn btn-success" onclick="onLoad()"><i class="fa-solid fa-arrows-rotate"></i> Tải</a>
+                </div>
+                <div class="col-6 col-md-2">
+                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Category" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
+                </div>
+            </div>
+            <hr class="my-2"/>
+            <table id="author-list" class="datatable-js">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tiêu đề</th>
+                        <th>Từ khóa</th>
+                        <th>Url meta</th>
+                        <th>Tên khác</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="category-list-body">
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Tiêu đề</th>
+                        <th>Từ khóa</th>
+                        <th>Url meta</th>
+                        <th>Tên khác</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                       
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    onLoad = () => {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("List")',
+            success: (res) => {
+                $('#category-list-body').empty();
+                $('#category-list-body').html(res);
+            }
+        })
+    };
+
+    onDelete = (id) => {
+        swal({
+            title: "Xác nhận",
+            text: "Bạn chắc chắn muốn xóa?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if(willDelete) {
+                $.ajax({
+                    type:'POST',
+                    url: '@Url.Action("Delete")',
+                    data: {
+                        id: id,
+                    },
+                    success: (res) => {
+                        if (res.success === true) {
+                            swal({
+                                title: 'Thành công',
+                                text: res.message,
+                                icon: 'success'
+                            })
+                            onLoad();
+                        }
+                        else {
+                            swal({
+                                title: 'Lỗi',
+                                text: res.message,
+                                icon: 'error'
+                            })
+                        }
+                    }
+                })
+            }
+        }) 
+    }
+</script>
