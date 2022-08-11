@@ -1,7 +1,10 @@
-﻿using CafeDevCode.Common.Shared.Model;
+﻿global using CafeDevCode.Ultils.Global;
+using CafeDevCode.Common.Shared.Model;
 using CafeDevCode.Database.Entities;
+using CafeDevCode.Logic.Commands.Request;
 using CafeDevCode.Logic.Queries.Interface;
 using CafeDevCode.Logic.Shared.Models;
+using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Website.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +22,6 @@ namespace CafeDevCode.Website.Controllers
             this.videoQueries = videoQueries;
             this.mediator = mediator;
         }
-
 
         public IActionResult Index()
         {
@@ -80,7 +82,7 @@ namespace CafeDevCode.Website.Controllers
 
         public async Task<ActionResult> Delete(int Id)
         {
-            var command = new DeleteTag()
+            var command = new DeleteVideo()
             {
                 Id = Id,
                 RequestId = HttpContext.Connection?.Id,
