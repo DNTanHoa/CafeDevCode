@@ -1,0 +1,23 @@
+﻿@using CafeDevCode.Database.Entities
+@using CafeDevCode.Logic.Shared.Models
+@model IEnumerable<PlayListSummaryModel>
+@if(Model != null &&
+    Model.Any())
+{
+    foreach(var playlist in Model)
+    {
+        <tr>
+            <td>@playlist.Id</td>
+            <td>@playlist.Title</td>
+            <td>@playlist.Description</td>
+            <td>@playlist.Keywords</td>
+            <td>@playlist.UrlMeta</td>
+            <td>
+                <a class="btn btn-success d-inline" asp-action="Detail" asp-controller="PlayList" asp-route-id="@playlist.Id">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button class="btn btn-danger d-inline ms-2" onclick="onDelete(@playlist.Id)"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+        </tr>
+    }
+}     

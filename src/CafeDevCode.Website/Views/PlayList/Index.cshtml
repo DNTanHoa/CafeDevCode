@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Admin - Quản lý danh sách phát - Cafe Dev Code";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Danh sách phát</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a aasp-action="Index">Danh sách phát</a></li>
+        <li class="breadcrumb-item active">Danh sách</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Danh sách phát
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <a class="w-100 btn btn-success" onclick="onLoad()"><i class="fa-solid fa-arrows-rotate"></i> Tải</a>
+                </div>
+                <div class="col-6 col-md-2">
+                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="PlayList" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
+                </div>
+            </div>
+            <hr class="my-2"/>
+            <table id="author-list" class="datatable-js">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Điện thoại</th>
+                        <th>Tên khác</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="author-list-body">
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Điện thoại</th>
+                        <th>Tên khác</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

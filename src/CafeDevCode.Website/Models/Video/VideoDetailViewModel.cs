@@ -1,4 +1,4 @@
-﻿using CafeDevCode.Logic.Commands.Request.Video;
+﻿using CafeDevCode.Logic.Commands.Request;
 
 namespace CafeDevCode.Website.Models
 {

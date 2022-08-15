@@ -32,6 +32,8 @@ namespace CafeDevCode.Logic.Commands.Handler
                 playList.SetCreateInfo(request.UserName ?? string.Empty, AppGlobal.SysDateTime);
 
                 database.SaveChanges();
+
+                result.Data = playList;
                 result.Success = true;
             }
             catch (Exception ex)
