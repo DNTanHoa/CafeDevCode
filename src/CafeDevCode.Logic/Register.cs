@@ -17,6 +17,8 @@ namespace CafeDevCode.Logic
             services.AddScoped<ICategoryQueries, CategoryQueries>();
             services.AddScoped<IPostQueries, PostQueries>();
             services.AddScoped<ITagQueries, TagQueries>();
+            services.AddScoped<IPlayListQueries, PlayListQueries>();
+            services.AddScoped<IVideoQueries, VideoQueries>();
             return services;
         }
     }

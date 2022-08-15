@@ -35,6 +35,7 @@ namespace CafeDevCode.Logic.Commands.Handler
                     database.Update(playList);
                     database.SaveChanges();
 
+                    result.Data = playList;
                     result.Success = true;
                 }
                 else
