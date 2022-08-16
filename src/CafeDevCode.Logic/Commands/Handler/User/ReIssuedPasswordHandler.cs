@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Handler
 {
-    public class ReIssuedPasswordHandler
+    public class ReIssuedPasswordHandler 
     {
     }
 }

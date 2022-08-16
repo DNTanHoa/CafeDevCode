@@ -1,0 +1,155 @@
+﻿@using CafeDevCode.Logic.Queries.Interface
+@using CafeDevCode.Logic.Shared.Models
+@inject IAuthorQueries authorQueries
+@inject IUserQueries userQueries
+@{
+    if (string.IsNullOrEmpty(Model.UserName))
+    {
+        ViewData["Title"] = $"Admin - {Model.UserName} - Cafe Dev Code";
+    }
+    else
+    {
+        ViewData["Title"] = "Admin - Quản lý người dùng - Cafe Dev Code";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model UserDetailModel
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">
+        @if (!string.IsNullOrEmpty(Model.UserName))
+        {
+            <span class="card-title">@Model.UserName</span>
+        }
+        else
+        {
+            <span class="card-title">Người dùng</span>
+        }
+    </h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a aasp-action="Index">Người dùng</a></li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin chung</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        @if (!userQueries.IsExistUserName(Model.UserName))
+                        {
+                            <label class="form-label" style="font-weight: bold;">Tài khoản:</label>
+                            <input class="form-control" type="text" asp-for="UserName">
+                        }
+                        else
+                        {
+                            <label class="form-label" style="font-weight: bold;">Tài khoản:</label>
+                            <input class="form-control" type="text" asp-for="UserName" readonly>
+                        }
+                       
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Email:</label>
+                        <input class="form-control" type="email" asp-for="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Điện thoại:</label>
+                        <input class="form-control" type="number" asp-for="PhoneNumber">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Tác giả:</label>
+                        @*<input class="form-control" type="text" asp-for="AuthorId">*@
+                        <select class="form-control select2" type="text" asp-for="AuthorId">
+                            @{
+                                var authors = authorQueries.GetAll();
+                                foreach (var author in authors)
+                                {
+                                    if(author.Id.ToString() == Model.AuthorId) 
+                                    {
+                                        <option value="@author.Id" selected>@author.ShortName</option>
+                                    }
+                                    else{
+                                        <option value="@author.Id">@author.ShortName</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-2">
+                        @if (!userQueries.IsExistUserName(Model.UserName))
+                        {
+                            <label class="form-label" style="font-weight: bold;">Mật khẩu:</label>
+                            <input class="form-control" type="text" asp-for="Password">
+                        }
+                        else
+                        {
+                            <label class="form-label" style="font-weight: bold;">Mật khẩu:</label>
+                            <div><label>@Model.PasswordHash</label></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <button type="button" class="btn btn-primary w-100" onclick="onSaveChange()"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                </div>
+                <div class="col-6 col-md-2">
+                    <a class="btn btn-dark w-100" asp-action="Index"><i class="fa-solid fa-xmark"></i> Thoát</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    onSaveChange = () => {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SaveChange")',
+            data: {
+                DetailUserName: $('#UserName').val(),
+                Email: $('#Email').val(),
+                PhoneNumber: $('#PhoneNumber').val(),
+                AuthorId: $('#AuthorId').val(),
+                Password: $('#Password').val()
+            },
+            success: (res) => {
+                if (res.success === true) {
+                    swal({
+                        title: 'Thành công',
+                        text: res.message,
+                        icon: 'success'
+                    }).then(() => {
+                        window.location = '@Url.Action("Detail", "User")?userName=' + res.data.userName
+                    })
+                }
+                else {
+                    swal({
+                        title: 'Lỗi',
+                        text: res.message,
+                        icon: 'error'
+                    })
+                }
+            },
+            error: (error) => {
+
+            }
+        })
+    }
+</script>
