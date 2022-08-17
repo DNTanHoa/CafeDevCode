@@ -23,6 +23,16 @@ namespace CafeDevCode.Website.Controllers
             this.mediator = mediator;
         }
 
+        public IActionResult IndexPortal()
+        {
+            return View();
+        }
+
+        public IActionResult DetailPortal()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

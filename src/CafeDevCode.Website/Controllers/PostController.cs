@@ -8,5 +8,15 @@ namespace CafeDevCode.Website.Controllers
         {
             return View();
         }
+
+        public IActionResult IndexPortal()
+        {
+            return View();
+        }
+
+        public IActionResult DetailPortal()
+        {
+            return View();
+        }
     }
 }
