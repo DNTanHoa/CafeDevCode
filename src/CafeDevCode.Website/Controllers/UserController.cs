@@ -9,6 +9,8 @@ using CafeDevCode.Website.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -18,12 +20,15 @@ namespace CafeDevCode.Website.Controllers
     {
         private readonly IMediator mediator;
         private readonly IUserQueries userQueries;
+        private readonly SignInManager<User> signInManager;
 
         public UserController(IMediator mediator, 
-            IUserQueries userQueries)
+            IUserQueries userQueries,
+            SignInManager<User> signInManager)
         {
             this.mediator = mediator;
             this.userQueries = userQueries;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -90,6 +95,7 @@ namespace CafeDevCode.Website.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult AdminLogin(LoginViewModel model)
         {
             return View(model);
@@ -117,7 +123,6 @@ namespace CafeDevCode.Website.Controllers
             {
                 return Json(new { success = false, message = ModelState.GetError() });
             }
-            return View(model);
         }
 
         public async Task<ActionResult> Delete(string userName)
@@ -134,6 +139,7 @@ namespace CafeDevCode.Website.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<ActionResult> AdminLoginSubmit(LoginViewModel model)
         {
             if(ModelState.IsValid)
@@ -157,7 +163,7 @@ namespace CafeDevCode.Website.Controllers
                     };
 
                     var claimPrincipal = new ClaimsPrincipal(claimIdentities);
-                    await HttpContext.SignInAsync(claimPrincipal);
+                    await signInManager.SignInAsync(user, model.RememberPassWord);
 
                     if (string.IsNullOrEmpty(model.ReturnUrl))
                     {

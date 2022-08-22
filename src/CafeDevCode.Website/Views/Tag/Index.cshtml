@@ -19,16 +19,15 @@
                     <a class="w-100 btn btn-success" onclick="onLoad()"><i class="fa-solid fa-arrows-rotate"></i> Tải</a>
                 </div>
                 <div class="col-6 col-md-2">
-                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Category" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
+                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Tag" asp-route-id="0"><i class="fa-solid fa-plus"></i> Thêm</a>
                 </div>
             </div>
             <hr class="my-2"/>
-            <table id="author-list" class="datatable-js">
+            <table id="tag-list" class="datatable-js">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>Tiêu đề</th>
-                        <th>Từ khóa</th>
                         <th>Mô tả</th>
                         <th>Meta</th>
                         <th>Thao tác</th>
@@ -41,7 +40,6 @@
                     <tr>
                         <th>#</th>
                         <th>Tiêu đề</th>
-                        <th>Từ khóa</th>
                         <th>Mô tả</th>
                         <th>Meta</th>
                         <th>Thao tác</th>
@@ -58,8 +56,8 @@
             type: 'GET',
             url: '@Url.Action("List")',
             success: (res) => {
-                $('#category-list-body').empty();
-                $('#category-list-body').html(res);
+                $('#tag-list-body').empty();
+                $('#tag-list-body').html(res);
             }
         })
     };

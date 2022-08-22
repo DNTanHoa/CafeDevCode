@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.MappingProfile
 {
-    internal class TagMappingProfile
+    public class TagMappingProfile : Profile
     {
+        public TagMappingProfile()
+        {
+            CreateMap<CreateTag, Tag>();
+            CreateMap<UpdateTag, Tag>();
+            CreateMap<Tag, TagSummaryModel>()
+                .ReverseMap();
+            CreateMap<Tag, TagDetailModel>()
+                .ReverseMap();
+        }
     }
 }

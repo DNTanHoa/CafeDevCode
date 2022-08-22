@@ -26,15 +26,17 @@ namespace CafeDevCode.Logic.Queries.Implement
         public List<PostSummaryModel> GetAll()
         {
             return database.Post
-              .Select(x => mapper.Map<PostSummaryModel>(x))
-              .ToList();
+                .Where(x => x.IsDeleted != true)
+                .Select(x => mapper.Map<PostSummaryModel>(x))
+                .ToList();
         }
 
         public Task<List<PostSummaryModel>> GetAllAsync()
         {
             return database.Post
-              .Select(x => mapper.Map<PostSummaryModel>(x))
-              .ToListAsync();
+                .Where(x => x.IsDeleted != true)
+                .Select(x => mapper.Map<PostSummaryModel>(x))
+                .ToListAsync();
         }
 
         public PostDetailModel? GetDetail(int id)

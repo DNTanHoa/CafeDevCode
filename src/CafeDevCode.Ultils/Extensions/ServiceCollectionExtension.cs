@@ -39,6 +39,7 @@ namespace CafeDevCode.Ultils.Extensions
                     options.AccessDeniedPath = "/Forbiden";
                     options.LoginPath = configuration.GetSection("AuthCookies: LoginPath").Value;
                 });
+            
             return services;
         }
 

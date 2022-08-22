@@ -6,8 +6,10 @@ using CafeDevCode.Logic.Commands.Request;
 using CafeDevCode.Logic.MappingProfile;
 using CafeDevCode.Ultils.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +17,7 @@ builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddCookiesAuthenticate(builder.Configuration);
 builder.Services.AddSqlServerDatabase<AppDatabase>(builder.Configuration
     .GetConnectionString("Database"));
@@ -24,6 +26,21 @@ builder.Services.AddMediatR(typeof(Login).Assembly);
 builder.Services.AddAutoMapper(typeof(AuthorMappingProfile).Assembly);
 builder.Services.AddQueries();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.LoginPath = builder.Configuration.GetSection("AuthCookies").GetSection("LoginPath").Value;
+    options.AccessDeniedPath = builder.Configuration.GetSection("AuthCookies").GetSection("LoginPath").Value;
+});
+
+builder.Services.AddAuthorization(o =>
+{
+    o.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 
 var app = builder.Build();
 
@@ -47,6 +64,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.MappingProfile
 {
-    internal class PostMappingProfile
+    public class PostMappingProfile : Profile
     {
+        public PostMappingProfile()
+        {
+            CreateMap<CreatePost, Post>();
+            CreateMap<UpdatePost, Post>();
+            CreateMap<Post, PostSummaryModel>()
+                .ReverseMap();
+            CreateMap<Post, PostDetailModel>()
+                .ReverseMap();
+        }
     }
 }

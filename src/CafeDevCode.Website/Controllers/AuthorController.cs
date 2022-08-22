@@ -7,6 +7,7 @@ using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Ultils.Global;
 using CafeDevCode.Website.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CafeDevCode.Website.Controllers
@@ -22,6 +23,8 @@ namespace CafeDevCode.Website.Controllers
             this.authorQueries = authorQueries;
             this.mediator = mediator;
         }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
