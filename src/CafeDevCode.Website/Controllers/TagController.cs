@@ -7,6 +7,7 @@ using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Ultils.Global;
 using CafeDevCode.Website.Model;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CafeDevCode.Website.Controllers
@@ -23,17 +24,20 @@ namespace CafeDevCode.Website.Controllers
             this.mediator = mediator;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Detail(int Id)
         {
             var model = new TagDetailModel();
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult List()
         {
             var model = new List<TagSummaryModel>();

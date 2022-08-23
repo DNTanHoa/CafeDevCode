@@ -30,6 +30,7 @@ namespace CafeDevCode.Website.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult List()
         {
             var model = new List<AuthorSummaryModel>();
@@ -37,6 +38,7 @@ namespace CafeDevCode.Website.Controllers
             return PartialView(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Detail(int Id)
         {
             var model = new AuthorDetailModel();
@@ -49,6 +51,7 @@ namespace CafeDevCode.Website.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> SaveChange(AuthorDetailViewModel model)
         {
             if(ModelState.IsValid)
@@ -85,6 +88,7 @@ namespace CafeDevCode.Website.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int Id)
         {
             var command = new DeleteAuthor()
