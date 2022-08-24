@@ -19,4 +19,8 @@
     <ProjectReference Include="..\CafeDevCode.Ultils\CafeDevCode.Ultils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Handler\Role\" />
+  </ItemGroup>
+
 </Project>

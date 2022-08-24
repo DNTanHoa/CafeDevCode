@@ -20,14 +20,13 @@
                     <a class="w-100 btn btn-success" onclick="onLoad()"><i class="fa-solid fa-arrows-rotate"></i> Tải</a>
                 </div>
                 <div class="col-6 col-md-2">
-                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Role" asp-route-id="#"><i class="fa-solid fa-plus"></i> Thêm</a>
+                    <a class="w-100 btn btn-success" asp-action="Detail" asp-controller="Role" asp-route-id=""><i class="fa-solid fa-plus"></i> Thêm</a>
                 </div>
             </div>
             <hr class="my-2" />
             <table id="role-list" class="datatable-js">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Tên nhóm quyền</th>
                         <th>Thao tác</th>
                     </tr>
@@ -36,7 +35,6 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>#</th>
                         <th>Tên nhóm quyền</th>
                         <th>Thao tác</th>
                     </tr>

@@ -7,7 +7,6 @@
     foreach (var tag in Model)
     {
         <tr>
-            <td>@tag.Id</td>
             <td>@tag.Name</td>
             <td>
                 <a class="btn btn-success d-inline" asp-action="Detail" asp-controller="Tag" asp-route-id="@tag.Id">

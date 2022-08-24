@@ -1,6 +1,7 @@
 ﻿using CafeDevCode.Logic.Queries.Implement;
 using CafeDevCode.Logic.Queries.Interface;
 using CafeDevCode.Logic.Shared.Models;
+using CafeDevCode.Website.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,21 @@ namespace CafeDevCode.Website.Controllers
             return View();
         }
 
-        public IActionResult Detail(string Id)
+        public IActionResult Detail(string? Id = "")
         {
-            return View();
+            var model = new RoleDetailModel();
+
+            if (!string.IsNullOrEmpty(Id))
+            {
+                model = roleQueries.GetDetail(Id);
+            }
+
+            return View(model);
+        }
+
+        public async Task<ActionResult> SaveChange(RoleDetailViewModel model)
+        {
+
         }
 
         public IActionResult List()
