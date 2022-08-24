@@ -32,7 +32,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     options.LoginPath = builder.Configuration.GetSection("AuthCookies").GetSection("LoginPath").Value;
-    options.AccessDeniedPath = builder.Configuration.GetSection("AuthCookies").GetSection("LoginPath").Value;
+    options.AccessDeniedPath = builder.Configuration.GetSection("AuthCookies").GetSection("AccessDeniedPath").Value;
 });
 
 builder.Services.AddAuthorization(o =>
