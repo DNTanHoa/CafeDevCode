@@ -20,6 +20,7 @@ namespace CafeDevCode.Logic
             services.AddScoped<IPlayListQueries, PlayListQueries>();
             services.AddScoped<IVideoQueries, VideoQueries>();
             services.AddScoped<IUserQueries, UserQueries>();
+            services.AddScoped<IRoleQueries, RoleQueries>();
             return services;
         }
     }
