@@ -4,6 +4,7 @@ using CafeDevCode.Database.Seeders;
 using CafeDevCode.Logic;
 using CafeDevCode.Logic.Commands.Request;
 using CafeDevCode.Logic.MappingProfile;
+using CafeDevCode.Logic.Shared.Configs;
 using CafeDevCode.Ultils.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +14,7 @@ using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews()
-    .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null)
-    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling =
-        Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCookiesAuthenticate(builder.Configuration);
 builder.Services.AddSqlServerDatabase<AppDatabase>(builder.Configuration
@@ -41,6 +39,9 @@ builder.Services.AddAuthorization(o =>
         .RequireAuthenticatedUser()
         .Build();
 });
+
+builder.Services.Configure<FileSystemConfig>(
+    builder.Configuration.GetSection(FileSystemConfig.ConfigName));
 
 var app = builder.Build();
 

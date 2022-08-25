@@ -38,7 +38,7 @@ namespace CafeDevCode.Website.Controllers
 
         public async Task<ActionResult> SaveChange(RoleDetailViewModel model)
         {
-
+            return Json(new { });
         }
 
         public IActionResult List()

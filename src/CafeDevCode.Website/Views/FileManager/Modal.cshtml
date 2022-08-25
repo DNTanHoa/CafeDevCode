@@ -1,0 +1,104 @@
+﻿<script>
+    var _closeCallbackFunction = null;
+    var _selectedFilePath = '';
+    var _selectedFileTmb = '';
+
+    onFileInit = (closeCallbackFunction) => {
+        $('#file-manager-modal').modal('show');
+        $('#file-manager-modal').on('hidden.bs.modal', closeCallbackFunction);
+    }
+</script>
+<div class="modal fade" id="file-manager-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content h-100">
+            <div class="modal-header p-2">
+                <h5 class="modal-title" id="exampleModalLongTitle">Thông tin danh mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-2 h-100" style="height: 900px;">
+                <div class="container-fluid px-0">
+                    <div class="row w-100 m-0 my-2">
+                        <div id="elfinder" class="style w-100" style="height: 800px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Chọn</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/jqueryui/themes/base/theme.css" />
+<link rel="stylesheet" href="~/jqueryui/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="~/elfinder/css/elfinder.full.css" />
+<link rel="stylesheet" href="~/elfinder/css/theme.min.css" />
+<script src="~/jqueryui/jquery-ui.min.js"></script>
+<script src="~/elfinder/js/elfinder.min.js"></script>
+
+<script>
+    var selectedFilePath = null;
+    // Documentation for client options:
+    // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+    $(document).ready(function () {
+        var myCommands = elFinder.prototype._options.commands;
+
+        // Not yet implemented commands in elFinder.NetCore
+        var disabled = ['callback', 'chmod', 'editor', 'netmount', 'ping', 'search', 'zipdl', 'help'];
+        elFinder.prototype.i18.en.messages.TextArea = "Edit";
+        $.each(disabled, function (i, cmd) {
+            (idx = $.inArray(cmd, myCommands)) !== -1 && myCommands.splice(idx, 1);
+        });
+        var options = {
+            baseUrl: "/elfinder/",
+            url: "/el-finder-file-system/connector",
+            rememberLastDir: false,
+            commands: myCommands,
+            lang: 'vi',
+            handlers: {
+                select: (event, elfinderInstance) => {
+                    if (event.data.selected.length == 1) {
+                        var item = $('#' + event.data.selected[0]);
+                        if (!item.hasClass('directory')) {
+                            selectedFile = event.data.selected[0];
+                            $('#elfinder-selectFile').show();
+                            return;
+                        }
+                    }
+                    $('#elfinder-selectFile').hide();
+                    selectedFile = null;
+                }
+            },
+            getFileCallback: function (file) {
+                _selectedFilePath = file.path;
+                _selectedFileTmb = file.tmb;
+            },
+            uiOptions: {
+                toolbar: [
+                    ['back', 'forward'],
+                    ['reload'],
+                    ['home', 'up'],
+                    ['mkdir', 'mkfile', 'upload'],
+                    ['open', 'download', 'getfile'],
+                    ['undo', 'redo'],
+                    ['info'],
+                    ['quicklook'],
+                    ['copy', 'cut', 'paste'],
+                    ['rm'],
+                    ['duplicate', 'rename', 'edit'],
+                    ['selectall', 'selectnone', 'selectinvert'],
+                    ['view', 'sort']
+                ]
+            },
+            //onlyMimes: ["image", "text/plain"] // Get files of requested mime types only
+            lang: 'vi',
+        };
+        $('#elfinder').elfinder(options).elfinder('instance');
+    });
+    function getUrlParam(paramName) {
+        var reParam = new RegExp('(?:[\?&]|&)' + paramName + '=([^&]+)', 'i');
+        var match = window.location.search.match(reParam);
+        return (match && match.length > 1) ? match[1] : null;
+    }
+</script>
