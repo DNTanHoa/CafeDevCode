@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CafeDevCode.Logic.Commands.Request
+namespace CafeDevCode.Logic.Commands.Handler
 {
-    public class AddUsers
+    internal class DeleteRoleHandler
     {
     }
 }
