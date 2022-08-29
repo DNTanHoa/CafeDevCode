@@ -1,0 +1,37 @@
+﻿@using System.Security.Claims
+@inject IHttpContextAccessor httpContextAccessor
+
+<ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+        <a class="nav-link" href="index.html">Trang chủ</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="About" asp-controller="Home">Về Blog</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="IndexPortal" asp-controller="Post">Bài viết</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="IndexPortal" asp-controller="Video">Video</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="Contact" asp-controller="Home">Liên hệ</a>
+    </li>
+    @if (!string.IsNullOrEmpty(httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value))
+    {
+        <li class="nav-item">
+            @{
+                var userName = @httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value;
+                <a class="nav-link" asp-action="DetailPortal" asp-controller="User" asp-route-userName="@userName">@userName</a>
+
+            }
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+                <a class="nav-link" asp-action="LoginPortal" asp-controller="User">Đăng nhập</a>
+         </li>
+    }
+   
+</ul>

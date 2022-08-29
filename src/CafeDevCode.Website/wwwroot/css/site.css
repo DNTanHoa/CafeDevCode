@@ -2,8 +2,32 @@ html {
   font-size: 14px;
 }
 
+
+.input-label {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.text-color {
+    color: #f48840 !important;
+}
+
+.btn-color {
+    background-color: #f48840 !important;
+}
+
+.btn-outline-color {
+    border-color: #f48840 !important;
+    color: #f48840 !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+}
+
 @media (min-width: 768px) {
-  html {
+    html {
     font-size: 16px;
   }
 }

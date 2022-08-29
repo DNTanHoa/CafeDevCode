@@ -1,0 +1,80 @@
+﻿@using CafeDevCode.Logic.Shared.Models
+@{
+    ViewData["Title"] = "Trang cá nhân";
+}
+@model UserDetailModel
+
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h2>Trang các nhân</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<section class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="down-contact">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="sidebar-item">
+                                <div class="sidebar-heading">
+                                    <h2>Trang cá nhân</h2>
+                                </div>
+                                <div class="content">
+                                    <div class="d-flex justify-content-center flex-column align-items-center">
+                                        <img class="" src="~/image/user-avatar.png" height="150" width="150" style="border-radius: 50%; border: 1px solid orange" />
+                                        <p class="input-label text-dark mt-2">@Model.UserName</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <a asp-action="ChangePasswordPortal" asp-route-UserName="@Model.UserName" class="btn btn-outline-dark w-100 input-label">Đổi mật khẩu</a>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <a asp-action="Logout" class="btn btn-color w-100 input-label">Đăng xuất</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="sidebar-item contact-information">
+                                <div class="sidebar-heading">
+                                    <h2>Thông tin cá nhân</h2>
+                                </div>
+                                <div class="content contact-form">
+                                    <form id="contact" action="" method="post">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="Email" placeholder="Email">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="PhoneNumber" placeholder="Điện thoại">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 mt-3">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 mt-3">
+                                                <button type="submit" class="btn w-100 input-label">Cập nhật</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

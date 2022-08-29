@@ -7,11 +7,13 @@
     <meta name="author" content="TemplateMo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
     <title>Stand CSS Blog by TemplateMo</title>
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/CafeDevCode.Website.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/css/fontawesome.css">
     <link rel="stylesheet" href="~/assets/css/templatemo-stand-blog.css">
     <link rel="stylesheet" href="~/assets/css/owl.css">
+    <link rel="stylesheet" href="~/css/site.css">
 </head>
 <body>
     <div id="preloader">
@@ -32,23 +34,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="About" asp-controller="Home">Về Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="IndexPortal" asp-controller="Post">Bài viết</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="IndexPortal" asp-controller="Video">Video</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-action="Contact" asp-controller="Home">Liên hệ</a>
-                        </li>
-                    </ul>
+                    @await Html.PartialAsync("~/Views/Partial/TopNavigation.cshtml")
                 </div>
             </div>
         </nav>

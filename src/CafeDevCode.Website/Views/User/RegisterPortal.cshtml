@@ -1,0 +1,104 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+@model RegisterViewModel
+
+<!-- Page Content -->
+<!-- Banner Starts Here -->
+<div class="heading-page header-text">
+    <section class="page-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-content">
+                        <h2>Đăng ký tài khoản</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<section class="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="down-contact">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="sidebar-item contact-form">
+                                <div class="sidebar-heading">
+                                    <h2>Đăng ký tài khoản</h2>
+                                </div>
+                                <div class="content">
+                                    <form id="contact" asp-action="RegisterPortalSubmit" method="post">
+                                        @{
+                                            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                                            {
+                                                var messages = Model.ErrorMessage.Split("\r\n");
+                                                <ul>
+                                                    @foreach (var message in messages)
+                                                    {
+                                                        if (!string.IsNullOrEmpty(message))
+                                                        {
+                                                            <li class="text-danger mb-1">@message</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            }
+                                        }
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="RegisterUserName" placeholder="Tài khoản" required="">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="Password" placeholder="Mật khẩu" required="">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="ConfirmPassword" placeholder="Xác nhận mật khẩu" required="">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="Email" placeholder="Email" >
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12">
+                                                <fieldset>
+                                                    <input asp-for="PhoneNumber" placeholder="Điện thoại">
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 mt-3">
+                                                <button class="btn w-100 btn-color">Đăng ký</button>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 mt-3">
+                                                <a asp-action="LoginPortal" class="btn w-100 btn-outline-dark btn-outline-color input-label">Đăng nhập</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sidebar-item contact-information">
+                                <div class="sidebar-heading">
+                                    <h2>Liên kết tài khoản</h2>
+                                </div>
+                                <div class="content">
+                                    @await Html.PartialAsync("~/Views/Partial/ExternalAuthenticate.cshtml")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

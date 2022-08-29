@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -77,6 +78,18 @@ namespace CafeDevCode.Ultils.Extensions
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
+            });
+            return services;
+        }
+
+        public static IServiceCollection AddGoogleAuthenticate(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddAuthentication().AddGoogle(o =>
+            {
+                o.ClientId = configuration["ExternalAuthen:Google:ClientId"];
+                o.ClientSecret = configuration["ExternalAuthen:Google:ClientSecret"];
+                o.CallbackPath = new PathString(configuration["ExternalAuthen:Google:CallbackPath"]);
             });
             return services;
         }

@@ -33,6 +33,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = builder.Configuration.GetSection("AuthCookies").GetSection("AccessDeniedPath").Value;
 });
 
+builder.Services.AddGoogleAuthenticate(builder.Configuration);
+
 builder.Services.AddAuthorization(o =>
 {
     o.FallbackPolicy = new AuthorizationPolicyBuilder()
