@@ -34,6 +34,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddGoogleAuthenticate(builder.Configuration);
+builder.Services.AddFacebookAuthenticate(builder.Configuration);
 
 builder.Services.AddAuthorization(o =>
 {

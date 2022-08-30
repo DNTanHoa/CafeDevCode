@@ -93,5 +93,16 @@ namespace CafeDevCode.Ultils.Extensions
             });
             return services;
         }
+
+        public static IServiceCollection AddFacebookAuthenticate(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services.AddAuthentication().AddFacebook(o =>
+            {
+                o.AppId = configuration["ExternalAuthen:Facebook:AppId"];
+                o.AppSecret = configuration["ExternalAuthen:Facebook:AppSecret"];
+            });
+            return services;
+        }
     }
 }
