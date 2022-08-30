@@ -44,6 +44,9 @@ builder.Services.AddAuthorization(o =>
 
 builder.Services.Configure<FileSystemConfig>(
     builder.Configuration.GetSection(FileSystemConfig.ConfigName));
+builder.Services.Configure<SiteConfig>(
+    builder.Configuration.GetSection(SiteConfig.ConfigName));
+
 
 var app = builder.Build();
 
@@ -70,8 +73,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(e =>
+{
+    e.MapControllerRoute(
+        name: "sitemap",
+        pattern: "site-map/sitemap.xml",
+        defaults: new { controller = "Home", action = "SiteMap" });
+    e.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
 
 app.Run();
