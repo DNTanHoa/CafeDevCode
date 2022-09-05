@@ -1,6 +1,15 @@
 ﻿@{
     ViewData["Title"] = "Admin - Trang chủ - Cafe Dev Code";
 }
+
+@section Header {
+    @{
+        var headerModel = new HeaderMetaViewModel();
+        headerModel.SetData("Cafe Dev Code", "cafe dev, code, code fun, daily code", "Đây là mô tả", "", "");
+        @await Html.PartialAsync("~/Views/Partial/HeaderMeta.cshtml", headerModel);
+    }
+}
+
 <div class="main-banner header-text">
     <div class="container-fluid">
         <div class="owl-banner owl-carousel">

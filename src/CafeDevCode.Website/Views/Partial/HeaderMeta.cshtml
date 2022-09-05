@@ -1,0 +1,55 @@
+﻿@using CafeDevCode.Website.Models
+@model HeaderMetaViewModel
+
+<title>@Model?.Title</title>
+<meta name="description" content="@Model?.Description" />
+<meta name="keywords" content="@Model?.Keywords" />
+<meta name="news_keywords" content="@Model?.NewKeywords" />
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1" name="viewport" />
+<meta http-equiv="X-UA-Compatible" content="IE=100" />
+<meta property="fb:app_id" content="@Model?.FacebookAppId" />
+<meta http-equiv="REFRESH" content="1800" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="@Model?.FacebookAppTitle" />
+<meta name="tt_article_id" content="1000000" />
+<meta name="tt_category_id" content="1000000" />
+<meta name="tt_site_id" content="1000000" />
+<meta name="tt_site_id_new" content="1000000" />
+<meta name="tt_list_folder" content="1000000" />
+<meta name="tt_list_folder_name" content="@Model?.ListFolderName" />
+<meta name="tt_page_type" content="site" />
+<meta name="tt_page_type_new" content="1" />
+<!-- add meta for pvtt3334 -->
+<!-- end meta for pvtt -->
+<!-- META FOR FACEBOOK -->
+<meta property="og:site_name" content="@Model?.OgSiteName" />
+<meta property="og:rich_attachment" content="true" />
+<meta property="og:type" content="website" />
+<meta property="og:url" itemprop="url" content="@Model?.OgUrl" />
+<meta property="og:image" itemprop="thumbnailUrl" content="@Model?.OgImage" />
+<meta property="og:image:width" content="@Model?.OgImageWidth" />
+<meta property="og:image:height" content="@Model?.OgImageHeight" />
+<meta content="@Model?.OgTitle" itemprop="headline" property="og:title" />
+<meta content="@Model?.OgDescription" itemprop="description" property="og:description" />
+<!-- END META FOR FACEBOOK -->
+<meta content="news" itemprop="genre" name="medium" />
+<meta content="vi-VN" itemprop="inLanguage" />
+<meta content="@Model?.ArticleSection" itemprop="articleSection" />
+<meta content="@Model?.Source" itemprop="sourceOrganization" name="source" />
+<meta name="copyright" content="@Model?.Copyright" />
+<meta name="author" content="@Model?.Author" />
+<meta name="robots" content="index,follow" />
+<meta name="geo.placename" content="@Model?.GeoPlaceName" />
+<meta name="geo.region" content="@Model?.GeoRegion" />
+<meta name="geo.position" content="@Model?.GeoPostion" />
+<meta name="ICBM" content="@Model?.ICBM" />
+<meta name="revisit-after" content="@Model?.RevisitAfter" />
+<!-- Twitter Card -->
+<meta name="twitter:card" value="summary" />
+<meta name="twitter:url" content="@Model?.TwitterUrl" />
+<meta name="twitter:title" content="@Model?.TwitterTitle" />
+<meta name="twitter:description" content="@Model?.TwitterDescription" />
+<meta name="twitter:image" content="@Model?.TwitterImage" />
+<meta name="twitter:site" content="@Model?.TwitterSite" />
+<meta name="twitter:creator" content="@Model?.TwitterCreator" />

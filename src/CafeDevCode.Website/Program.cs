@@ -9,8 +9,12 @@ using CafeDevCode.Ultils.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.IO.Compression;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,25 @@ builder.Services.AddSqlServerDatabase<AppDatabase>(builder.Configuration
 builder.Services.AddIdentityConfig<User, IdentityRole, AppDatabase>();
 builder.Services.AddMediatR(typeof(Login).Assembly);
 builder.Services.AddAutoMapper(typeof(AuthorMappingProfile).Assembly);
+builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.All }));
+
+builder.Services.AddResponseCompression(o =>
+{
+    o.EnableForHttps = true;
+    o.Providers.Add<BrotliCompressionProvider>();
+    o.Providers.Add<GzipCompressionProvider>();
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.Fastest;
+});
+
+builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+{
+    options.Level = CompressionLevel.SmallestSize;
+});
+
 builder.Services.AddQueries();
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -34,7 +57,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddGoogleAuthenticate(builder.Configuration);
-builder.Services.AddFacebookAuthenticate(builder.Configuration);
 
 builder.Services.AddAuthorization(o =>
 {
@@ -67,7 +89,17 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    OnPrepareResponse = (context) =>
+    {
+        if (!string.IsNullOrEmpty(context.Context.Request.Query["v"]))
+        {
+            context.Context.Response.Headers.Add("cache-control", new[] { "public,max-age=31536000" });
+            context.Context.Response.Headers.Add("Expires", new[] { DateTime.UtcNow.AddHours(1).ToString("R") }); // Format RFC112
+        }
+    }
+});
 
 app.UseRouting();
 
