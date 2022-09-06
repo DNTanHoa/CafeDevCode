@@ -27,6 +27,7 @@ namespace CafeDevCode.Logic.Queries.Implement
         public List<PlayListSummaryModel> GetAll()
         {
             return database.PlayLists
+                .Where(x => x.IsDeleted != true)
                 .Select(x => mapper.Map<PlayListSummaryModel>(x))
                 .ToList();
         }
@@ -34,6 +35,7 @@ namespace CafeDevCode.Logic.Queries.Implement
         public Task<List<PlayListSummaryModel>> GetAllAsync()
         {
             return Task.Run(() => database.Categories
+                .Where(x => x.IsDeleted != true)
                 .Select(x => mapper.Map<PlayListSummaryModel>(x))
                 .ToListAsync());
         }
