@@ -1,6 +1,8 @@
 ﻿@using CafeDevCode.Logic.Queries.Interface
 @using CafeDevCode.Logic.Shared.Models
 @inject ITagQueries tagQueries
+@inject IPlayListQueries playlistQueries
+
 @{
     if (Model.Id > 0)
     {
@@ -59,7 +61,27 @@
                 <div class="col-md-6">
                     <div class="mb-2">
                         <label class="form-label" style="font-weight: bold;">Hình ảnh:</label>
-                        <input class="form-control" type="text" asp-for="Image">
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Image" class="form-control" placeholder="Ảnh">
+                            <span class="input-group-text btn btn-success" id="basic-addon2" onclick="onBrowser()">Browser</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Url Video:</label>
+                        <input class="form-control" type="text" asp-for="Url">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Hình ảnh:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Image" class="form-control" placeholder="Ảnh">
+                            <span class="input-group-text btn btn-success" id="basic-addon2" onclick="onBrowser()">Browser</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -74,7 +96,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-2">
-                        <label class="form-label"><b>Mô tả:</b></label>
+                        <label class="form-label"><b>Tóm tắt:</b></label>
                         <textarea rows="4" class="form-control" type="text" asp-for="Summary"></textarea>
                     </div>
                 </div>
@@ -97,6 +119,32 @@
                                         else
                                         {
                                             <option value="@tag.Id">@tag.Title</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <label class="form-label"><b>Danh sách phát:</b></label>
+                        <select multiple class="form-select select2" id="multiple-select-playlists" data-placeholder="Danh sách phát">
+                            @{
+                                var playlists = playlistQueries.GetAll();
+                                if (tags != null)
+                                {
+                                    foreach (var playlist in playlists)
+                                    {
+                                        if (Model.PlayLists?.Select(x => x.Id).Contains(playlist.Id) == true)
+                                        {
+                                            <option selected value="@playlist.Id">@playlist.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@playlist.Id">@playlist.Title</option>
                                         }
                                     }
                                 }

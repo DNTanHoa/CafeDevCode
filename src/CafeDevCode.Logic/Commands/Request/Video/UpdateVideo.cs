@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.Commands.Request
 {
-    public class UpdateVideo : Video,
+    public class UpdateVideo : VideoDetailModel,
         IIdentifiedCommand,
         IRequest<BaseCommandResultWithData<Video>>
     {

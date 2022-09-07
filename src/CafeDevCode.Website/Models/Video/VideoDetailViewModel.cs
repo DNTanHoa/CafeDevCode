@@ -1,4 +1,5 @@
-﻿using CafeDevCode.Logic.Commands.Request;
+﻿using CafeDevCode.Database.Entities;
+using CafeDevCode.Logic.Commands.Request;
 
 namespace CafeDevCode.Website.Models
 {
@@ -15,11 +16,23 @@ namespace CafeDevCode.Website.Models
         public string? Iframe { get; set; } = string.Empty;
         public DateTime? PostDate { get; set; }
         public string? Remark { get; set; } = string.Empty;
-
+        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<PlayList> PlayLists { get; set; } = new List<PlayList>();
         public CreateVideo ToCreateCommand()
         {
             return new CreateVideo
             {
+                Title = this.Title,
+                Summary = this.Summary,
+                Description = this.Description,
+                Url = this.Url,
+                UrlMeta = this.UrlMeta,
+                Iframe = this.Iframe,
+                Keywords = this.Keywords,
+                PostDate = this.PostDate,
+                Remark = this.Remark,
+                Tags = this.Tags,
+                PlayLists = this.PlayLists,
             };
         }
 
@@ -27,7 +40,18 @@ namespace CafeDevCode.Website.Models
         {
             return new UpdateVideo
             {
-
+                Id = this.Id,
+                Title = this.Title,
+                Summary = this.Summary,
+                Description = this.Description,
+                Url = this.Url,
+                UrlMeta = this.UrlMeta,
+                Iframe = this.Iframe,
+                Keywords = this.Keywords,
+                PostDate = this.PostDate,
+                Remark = this.Remark,
+                Tags = this.Tags,
+                PlayLists = this.PlayLists,
             };
         }
     }

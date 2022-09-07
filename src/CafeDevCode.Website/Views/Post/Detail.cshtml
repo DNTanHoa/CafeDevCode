@@ -104,11 +104,11 @@
                                 {
                                     if (Model.Relates?.Select(x => x.Id).Contains(post.Id) == true)
                                     {
-                                                                                            <option selected value="@post.Id">@post.Title</option>
+                                        <option selected value="@post.Id">@post.Title</option>
                                     }
                                     else
                                     {
-                                                                                            <option value="@post.Id">@post.Title</option>
+                                        <option value="@post.Id">@post.Title</option>
                                     }
                                 }
                             }
