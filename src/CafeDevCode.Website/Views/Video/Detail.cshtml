@@ -1,1 +1,169 @@
-﻿
+﻿@using CafeDevCode.Logic.Queries.Interface
+@using CafeDevCode.Logic.Shared.Models
+@inject ITagQueries tagQueries
+@inject IPlayListQueries playlistQueries
+
+@{
+    if (Model.Id > 0)
+    {
+        ViewData["Title"] = $"Admin - {Model.Title} - Cafe Dev Code";
+    }
+    else
+    {
+        ViewData["Title"] = "Admin - Thêm mới video - Cafe Dev Code";
+    }
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model VideoDetailModel
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">
+        @if (Model.Id > 0)
+        {
+            <span class="card-title">@Model.Title</span>
+        }
+        else
+        {
+            <span class="card-title">Video</span>
+        }
+    </h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a aasp-action="Index">Video</a></li>
+        <li class="breadcrumb-item active">Chi tiết</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin chung</h3>
+        </div>
+        <div class="card-body">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Tiêu đề:</label>
+                        <input class="form-control" type="text" asp-for="Title">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Từ khóa:</label>
+                        <input class="form-control" type="text" asp-for="Keywords">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Url Meta:</label>
+                        <input class="form-control" type="text" asp-for="UrlMeta">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Hình ảnh:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Image" class="form-control" placeholder="Ảnh">
+                            <span class="input-group-text btn btn-success" id="basic-addon2" onclick="onBrowser()">Browser</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Url Video:</label>
+                        <input class="form-control" type="text" asp-for="Url">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2">
+                        <label class="form-label" style="font-weight: bold;">Hình ảnh:</label>
+                        <div class="input-group mb-3">
+                            <input type="text" asp-for="Image" class="form-control" placeholder="Ảnh">
+                            <span class="input-group-text btn btn-success" id="basic-addon2" onclick="onBrowser()">Browser</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <label class="form-label"><b>Mô tả:</b></label>
+                        <textarea rows="4" class="form-control" type="text" asp-for="Description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <label class="form-label"><b>Tóm tắt:</b></label>
+                        <textarea rows="4" class="form-control" type="text" asp-for="Summary"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <label class="form-label"><b>Thẻ:</b></label>
+                        <select multiple class="form-select select2" id="multiple-select-tags" data-placeholder="Thẻ ">
+                            @{
+                                var tags = tagQueries.GetAll();
+                                if (tags != null)
+                                {
+                                    foreach (var tag in tags)
+                                    {
+                                        if (Model.Tags?.Select(x => x.Id).Contains(tag.Id) == true)
+                                        {
+                                            <option selected value="@tag.Id">@tag.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@tag.Id">@tag.Title</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-2">
+                        <label class="form-label"><b>Danh sách phát:</b></label>
+                        <select multiple class="form-select select2" id="multiple-select-playlists" data-placeholder="Danh sách phát">
+                            @{
+                                var playlists = playlistQueries.GetAll();
+                                if (tags != null)
+                                {
+                                    foreach (var playlist in playlists)
+                                    {
+                                        if (Model.PlayLists?.Select(x => x.Id).Contains(playlist.Id) == true)
+                                        {
+                                            <option selected value="@playlist.Id">@playlist.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@playlist.Id">@playlist.Title</option>
+                                        }
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <button type="button" class="btn btn-primary w-100" onclick="onSaveChange()"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
+                </div>
+                <div class="col-6 col-md-2">
+                    <a class="btn btn-dark w-100" asp-action="Index"><i class="fa-solid fa-xmark"></i> Thoát</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

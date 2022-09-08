@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CafeDevCode.Database.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,42 @@ namespace CafeDevCode.Logic.Commands.Handler
                     database.Update(video);
                     database.SaveChanges();
 
+                    if (request.Tags != null)
+                    {
+                        var oldVideoTags = database.VideoTags.Where(x => x.VideoId == video.Id);
+                        database.RemoveRange(oldVideoTags);
+
+                        var videoTags = request.Tags.Select(x => new VideoTag()
+                        {
+                            VideoId = video.Id,
+                            TagId = x.Id,
+                            CreatedAt = AppGlobal.SysDateTime,
+                            CreatedBy = request.UserName,
+                        });
+
+                        database.VideoTags.AddRange(videoTags);
+                    }
+
+                    if(request.PlayLists != null)
+                    {
+                        var oldPlayListVideos = database.PlayListVideos.Where(x => x.VideoId == video.Id);
+                        database.RemoveRange(oldPlayListVideos);
+
+                        var playListVideos = request.PlayLists.Select(x => new PlayListVideo()
+                        {
+                            VideoId = video.Id,
+                            PlayListId = x.Id,
+                            CreatedAt = AppGlobal.SysDateTime,
+                            CreatedBy = request.UserName,
+                        });
+
+                        database.PlayListVideos.AddRange(playListVideos);
+                    }
+
+                    database.SaveChanges();
+
                     result.Success = true;
+                    result.Data = video;
                 }
                 else
                 {

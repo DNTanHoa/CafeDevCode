@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace CafeDevCode.Logic.MappingProfile
 {
-    internal class PlayListMappingProfile
+    public class PlayListMappingProfile : Profile
     {
+        public PlayListMappingProfile()
+        {
+            CreateMap<PlayList, PlayListSummaryModel>();
+            CreateMap<PlayList, PlayListDetailModel>();
+            CreateMap<CreatePlayList, PlayList>();
+            CreateMap<UpdatePlayList, PlayList>();
+        }
     }
 }
