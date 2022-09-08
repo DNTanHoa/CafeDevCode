@@ -104,8 +104,8 @@ namespace CafeDevCode.Logic.Queries.Implement
         public BasePagingData<PostSummaryModel> GetPaging(BaseQuery query)
         {
             var posts = database.Post
-                .Where(x => x.Title!.Contains(query.Keywords ?? string.Empty) ||
-                            x.Description!.Contains(query.Keywords ?? string.Empty) ||
+                .Where(x => (x.Title!.Contains(query.Keywords ?? string.Empty) ||
+                            x.Description!.Contains(query.Keywords ?? string.Empty)) &&
                             x.IsDeleted != true)
                 .Skip(((query.PageIndex - 1) * query.PageSize) ?? 0).Take((query.PageSize * query.PageIndex) ?? 20)
                 .Select(x => mapper.Map<PostSummaryModel>(x))
@@ -126,8 +126,8 @@ namespace CafeDevCode.Logic.Queries.Implement
         public Task<BasePagingData<PostSummaryModel>> GetPagingAsync(BaseQuery query)
         {
             var posts = database.Post
-                .Where(x => x.Title!.Contains(query.Keywords ?? string.Empty) ||
-                            x.Description!.Contains(query.Keywords ?? string.Empty) ||
+                .Where(x => (x.Title!.Contains(query.Keywords ?? string.Empty) ||
+                            x.Description!.Contains(query.Keywords ?? string.Empty)) &&
                             x.IsDeleted != true)
                 .Skip(((query.PageIndex - 1) * query.PageSize) ?? 0).Take((query.PageSize * query.PageIndex) ?? 20)
                 .Select(x => mapper.Map<PostSummaryModel>(x))

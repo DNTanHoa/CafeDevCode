@@ -9,5 +9,7 @@ namespace CafeDevCode.Logic.Shared.Models
 {
     public class PostSummaryModel : Post
     {
+        public string AuthorName { get; set; } = string.Empty;
+        public int TotalComment { get; set; }
     }
 }

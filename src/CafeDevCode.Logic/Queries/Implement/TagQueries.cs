@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,6 +36,15 @@ namespace CafeDevCode.Logic.Queries.Implement
             return database.Tags
               .Select(x => mapper.Map<TagSummaryModel>(x))
               .ToListAsync();
+        }
+
+        public List<TagSummaryModel> GetByPostId(int postId)
+        {
+            var postTags = database.PostTags.Where(x => x.PostId == postId);
+            return database.Tags
+             .Where(t => postTags.Select(x => x.TagId).Contains(t.Id))
+             .Select(x => mapper.Map<TagSummaryModel>(x))
+             .ToList();
         }
 
         public TagDetailModel? GetDetail(int id)

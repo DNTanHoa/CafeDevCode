@@ -1,13 +1,15 @@
-﻿<!-- Page Content -->
-<!-- Banner Starts Here -->
+﻿@using CafeDevCode.Logic.Shared.Configs
+@using Microsoft.Extensions.Options
+@inject IOptions<ContactInfoConfig> contactInfoConfig
+@model ContactViewModel
+
 <div class="heading-page header-text">
     <section class="page-heading">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-content">
-                        <h4>contact us</h4>
-                        <h2>let’s stay in touch!</h2>
+                        <h2>Liên hệ với tôi</h2>
                     </div>
                 </div>
             </div>
@@ -27,34 +29,49 @@
                         <div class="col-lg-8">
                             <div class="sidebar-item contact-form">
                                 <div class="sidebar-heading">
-                                    <h2>Send us a message</h2>
+                                    <h2>Hãy gửi phản hồi cho tôi!</h2>
                                 </div>
                                 <div class="content">
-                                    <form id="contact" action="" method="post">
+                                    <form id="contact" asp-action="ContactSubmit" method="post">
+                                        @{
+                                            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                                            {
+                                                var messages = Model.ErrorMessage.Split("\r\n");
+                                                <ul>
+                                                    @foreach (var message in messages)
+                                                    {
+                                                        if (!string.IsNullOrEmpty(message))
+                                                        {
+                                                            <li class="text-danger mb-1">@message</li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            }
+                                        }
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
                                                 <fieldset>
-                                                    <input name="name" type="text" id="name" placeholder="Your name" required="">
+                                                    <input asp-for="Name" placeholder="Họ và tên" required="">
                                                 </fieldset>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
                                                 <fieldset>
-                                                    <input name="email" type="text" id="email" placeholder="Your email" required="">
+                                                    <input asp-for="Email" placeholder="Email" required="">
                                                 </fieldset>
                                             </div>
                                             <div class="col-md-12 col-sm-12">
                                                 <fieldset>
-                                                    <input name="subject" type="text" id="subject" placeholder="Subject">
+                                                    <input asp-for="Subject" placeholder="Tiêu đề">
                                                 </fieldset>
                                             </div>
                                             <div class="col-lg-12">
                                                 <fieldset>
-                                                    <textarea name="message" rows="6" id="message" placeholder="Your Message" required=""></textarea>
+                                                    <textarea asp-for="Message" placeholder="Nội dung" required=""></textarea>
                                                 </fieldset>
                                             </div>
                                             <div class="col-lg-12">
                                                 <fieldset>
-                                                    <button type="submit" id="form-submit" class="main-button">Send Message</button>
+                                                    <button type="submit" class="main-button">Gửi tin</button>
                                                 </fieldset>
                                             </div>
                                         </div>
@@ -65,24 +82,23 @@
                         <div class="col-lg-4">
                             <div class="sidebar-item contact-information">
                                 <div class="sidebar-heading">
-                                    <h2>contact information</h2>
+                                    <h2>Thông tin liên hệ</h2>
                                 </div>
                                 <div class="content">
                                     <ul>
                                         <li>
-                                            <h5>090-484-8080</h5>
-                                            <span>PHONE NUMBER</span>
+                                            <h5>@contactInfoConfig.Value.PhoneNumber</h5>
+                                            <span>ĐIỆN THOẠI</span>
                                         </li>
                                         <li>
-                                            <h5>info@company.com</h5>
-                                            <span>EMAIL ADDRESS</span>
+                                            <h5>@contactInfoConfig.Value.Email</h5>
+                                            <span>EMAIL</span>
                                         </li>
                                         <li>
                                             <h5>
-                                                123 Aenean id posuere dui,
-                                                <br>Praesent laoreet 10660
+                                                @contactInfoConfig.Value.Address
                                             </h5>
-                                            <span>STREET ADDRESS</span>
+                                            <span>NƠI SỐNG</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -91,13 +107,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-12">
-                <div id="map">
-                    <iframe src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="450px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>

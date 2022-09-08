@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.IO.Compression;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -69,6 +70,14 @@ builder.Services.Configure<FileSystemConfig>(
     builder.Configuration.GetSection(FileSystemConfig.ConfigName));
 builder.Services.Configure<SiteConfig>(
     builder.Configuration.GetSection(SiteConfig.ConfigName));
+builder.Services.Configure<ContactInfoConfig>(
+    builder.Configuration.GetSection(ContactInfoConfig.ConfigName));
+builder.Services.Configure<MailConfig>(
+    builder.Configuration.GetSection(MailConfig.ConfigName));
+
+builder.Services.AddFluentEmail(builder.Configuration["MailConfig:DefaultToMailAddress"])
+        .AddSmtpSender(builder.Configuration["MailConfig:Host"], int.Parse(builder.Configuration["MailConfig:Port"]),
+        builder.Configuration["MailConfig:UserName"], builder.Configuration["MailConfig:Password"]);
 
 
 var app = builder.Build();

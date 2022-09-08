@@ -12,6 +12,7 @@ namespace CafeDevCode.Logic.Queries.Interface
     {
         BasePagingData<TagSummaryModel> GetPaging(BaseQuery query);
         List<TagSummaryModel> GetAll();
+        List<TagSummaryModel> GetByPostId(int postId);
         TagDetailModel? GetDetail(int id);
         Task<TagDetailModel?> GetDetailAsync(int id);
         Task<BasePagingData<TagSummaryModel>> GetPagingAsync(BaseQuery query);

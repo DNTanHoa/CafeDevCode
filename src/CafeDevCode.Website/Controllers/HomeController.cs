@@ -1,6 +1,9 @@
 ﻿using CafeDevCode.Logic.Queries.Interface;
 using CafeDevCode.Logic.Shared.Configs;
+using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Ultils.Model;
+using CafeDevCode.Website.Models;
+using FluentEmail.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -12,19 +15,25 @@ namespace CafeDevCode.Website.Controllers
         private readonly IPostQueries postQueries;
         private readonly ITagQueries tagQueries;
         private readonly ICategoryQueries categoryQueries;
+        private readonly MailConfig mailConfig;
         private readonly IWebHostEnvironment environment;
+        private readonly IFluentEmail fluentEmail;
         private readonly SiteConfig siteConfig;
 
         public HomeController(IPostQueries postQueries,
             ITagQueries tagQueries,
             ICategoryQueries categoryQueries,
             IOptions<SiteConfig> siteConfig,
-            IWebHostEnvironment environment)
+            IOptions<MailConfig> mailConfig,
+            IWebHostEnvironment environment,
+            IFluentEmail fluentEmail)
         {
             this.postQueries = postQueries;
             this.tagQueries = tagQueries;
             this.categoryQueries = categoryQueries;
+            this.mailConfig = mailConfig.Value;
             this.environment = environment;
+            this.fluentEmail = fluentEmail;
             this.siteConfig = siteConfig.Value;
         }
         [AllowAnonymous]
@@ -69,14 +78,31 @@ namespace CafeDevCode.Website.Controllers
             return Content(System.IO.File.ReadAllText(siteMapPath), "text/xml");
         }
 
-        public IActionResult Contact()
+        public IActionResult Contact(ContactViewModel model)
         {
-            return View();
+            return View(model);
         }
 
         public IActionResult About()
         {
             return View();
+        }
+
+        public async Task<ActionResult> ContactSubmit(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var message = $"Người gửi: {model.Name} \r\nEmail: {model.Email} \r\n{model.Message}";
+                await fluentEmail.To(mailConfig.DefaultToMailAddress)
+                    .Subject(model.Subject)
+                    .Body(message).SendAsync();
+            }
+            else
+            {
+                model.ErrorMessage = ModelState.GetError();
+                return View("~/Views/Home/Contact.cshtml", model);
+            }
+            return View(model);
         }
     }
 }
