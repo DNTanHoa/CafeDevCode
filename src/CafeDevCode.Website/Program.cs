@@ -118,6 +118,10 @@ app.UseAuthorization();
 app.UseEndpoints(e =>
 {
     e.MapControllerRoute(
+        name: "post-detail",
+        pattern: "{meta}-{id}.html",
+        defaults: new { controller = "Post", action = "DetailPortal" });
+    e.MapControllerRoute(
         name: "sitemap",
         pattern: "site-map/sitemap.xml",
         defaults: new { controller = "Home", action = "SiteMap" });

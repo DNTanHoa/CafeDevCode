@@ -7,6 +7,7 @@ using CafeDevCode.Logic.Shared.Models;
 using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Website.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CafeDevCode.Website.Controllers
@@ -102,14 +103,27 @@ namespace CafeDevCode.Website.Controllers
             return Json(new { success = result.Success, message = result.Messages });
         }
 
+        [AllowAnonymous]
         public IActionResult IndexPortal()
         {
             return View();
         }
 
-        public IActionResult DetailPortal()
+        [AllowAnonymous]
+        public IActionResult DetailPortal(int id)
         {
-            return View();
+
+            var model = new PostDetailModel()
+            {
+                PostDate = DateTime.Now,
+            };
+
+            if (id > 0)
+            {
+                model = postQueries.GetDetail(id);
+            }
+
+            return View(model);
         }
     }
 }

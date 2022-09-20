@@ -10,7 +10,7 @@
     @{
         var headerModel = new HeaderMetaViewModel();
         headerModel.SetData("Cafe Dev Code", "cafe dev, code, code fun, daily code", "Đây là mô tả", "", "");
-    @await Html.PartialAsync("~/Views/Partial/HeaderMeta.cshtml", headerModel);
+        @await Html.PartialAsync("~/Views/Partial/HeaderMeta.cshtml", headerModel);
     }
 }
 
@@ -34,19 +34,19 @@
                 {
                     foreach (var item in topPosts.Items)
                     {
-                                    <div class="item h-100">
-                                        <img src="@($"{siteConfig.Value.HttpsUrl}{item.Image}")" alt="" style="height: 540px;">
-                                        <div class="item-content">
-                                            <div class="main-content">
-                                                <a href="post-details.html"><h4>@item.Title</h4></a>
-                                                <ul class="post-info">
-                                                    <li><a href="#">@item.AuthorName</a></li>
-                                                    <li><a href="#">@item.PostDate?.ToString("yyyy, MMM, dd")</a></li>
-                                                    <li><a href="#">@item.TotalComment Comments</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="item h-100">
+                            <img src="@($"{siteConfig.Value.HttpsUrl}{item.Image}")" alt="" style="height: 540px;">
+                            <div class="item-content">
+                                <div class="main-content">
+                                    <a href="post-details.html"><h4>@item.Title</h4></a>
+                                    <ul class="post-info">
+                                        <li><a href="#">@item.AuthorName</a></li>
+                                        <li><a href="#">@item.PostDate?.ToString("yyyy, MMM, dd")</a></li>
+                                        <li><a href="#">@item.TotalComment Comments</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     }
                 }
             }
@@ -73,45 +73,45 @@
                             {
                                 foreach (var post in posts.Items)
                                 {
-                                                <div class="col-lg-12">
-                                                    <div class="blog-post">
-                                                        <div class="blog-thumb">
-                                                            <img src="@($"{siteConfig.Value.HttpsUrl}{post.Image}")" alt="">
-                                                        </div>
-                                                        <div class="down-content">
-                                                            <a href="@($"{siteConfig.Value.HttpsUrl}{post.UrlMeta}-{post.Id}.html")"><h4>@post.Title</h4></a>
-                                                            <ul class="post-info">
-                                                                <li><a href="#">@post.AuthorName</a></li>
-                                                                <li><a href="#">@post.PostDate?.ToString("yyyy, MMM, dd")</a></li>
-                                                                <li><a href="#">@post.TotalComment Comments</a></li>
-                                                            </ul>
-                                                            <p>@post.Summary</p>
-                                                            <div class="post-options">
-                                                                <div class="row">
-                                                                    <div class="col-6">
-                                                                        <ul class="post-tags">
-                                                                            <li><i class="fa fa-tags"></i></li>
-                                                                            @{
+                                    <div class="col-lg-12">
+                                        <div class="blog-post">
+                                            <a href="@($"{siteConfig.Value.HttpsUrl}{post.UrlMeta}-{post.Id}.html")" class="blog-thumb">
+                                                <img src="@($"{siteConfig.Value.HttpsUrl}{post.Image}")" alt="">
+                                            </a>
+                                            <div class="down-content">
+                                                <a href="@($"{siteConfig.Value.HttpsUrl}{post.UrlMeta}-{post.Id}.html")"><h4>@post.Title</h4></a>
+                                                <ul class="post-info">
+                                                    <li><a href="#">@post.AuthorName</a></li>
+                                                    <li><a href="#">@post.PostDate?.ToString("yyyy, MMM, dd")</a></li>
+                                                    <li><a href="#">@post.TotalComment Comments</a></li>
+                                                </ul>
+                                                <p>@post.Summary</p>
+                                                <div class="post-options">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <ul class="post-tags">
+                                                                <li><i class="fa fa-tags"></i></li>
+                                                                @{
                                                                     var tags = tagQueries.GetByPostId(post.Id);
                                                                     foreach(var tag in tags) 
                                                                     {
-                                                                                                <li><a href="@($"{siteConfig.Value?.HttpsUrl}tag/{tag.UrlMeta}-{tag.Id}.html")">@tag.Title</a>,</li>
+                                                                         <li><a href="@($"{siteConfig.Value?.HttpsUrl}tag/{tag.UrlMeta}-{tag.Id}.html")">@tag.Title</a>,</li>
                                                                     }
-                                                                            }
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <ul class="post-share">
-                                                                            <li><i class="fa fa-share-alt"></i></li>
-                                                                            <li><a href="#">Facebook</a>,</li>
-                                                                            <li><a href="#"> Twitter</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <ul class="post-share">
+                                                                <li><i class="fa fa-share-alt"></i></li>
+                                                                <li><a href="#">Facebook</a>,</li>
+                                                                <li><a href="#"> Twitter</a></li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                             }
                         }
