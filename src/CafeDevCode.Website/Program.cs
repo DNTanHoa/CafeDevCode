@@ -118,6 +118,10 @@ app.UseAuthorization();
 app.UseEndpoints(e =>
 {
     e.MapControllerRoute(
+        name: "about",
+        pattern: "gioi-thieu.html",
+        defaults: new { controller = "Home", action = "About" });
+    e.MapControllerRoute(
         name: "post-detail",
         pattern: "{meta}-{id}.html",
         defaults: new { controller = "Post", action = "DetailPortal" });

@@ -29,32 +29,12 @@
                     PageSize = 5,
                 });
 
-                if(topPosts != null &&
-                   topPosts.Items.Any())
-                {
-                    foreach (var item in topPosts.Items)
-                    {
-                        <div class="item h-100">
-                            <img src="@($"{siteConfig.Value.HttpsUrl}{item.Image}")" alt="" style="height: 540px;">
-                            <div class="item-content">
-                                <div class="main-content">
-                                    <a href="post-details.html"><h4>@item.Title</h4></a>
-                                    <ul class="post-info">
-                                        <li><a href="#">@item.AuthorName</a></li>
-                                        <li><a href="#">@item.PostDate?.ToString("yyyy, MMM, dd")</a></li>
-                                        <li><a href="#">@item.TotalComment Comments</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
             }
         </div>
     </div>
 </div>
 <!-- Banner Ends Here -->
-<section class="blog-posts">
+<section class="blog-posts mt-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -95,7 +75,7 @@
                                                                     var tags = tagQueries.GetByPostId(post.Id);
                                                                     foreach(var tag in tags) 
                                                                     {
-                                                                         <li><a href="@($"{siteConfig.Value?.HttpsUrl}tag/{tag.UrlMeta}-{tag.Id}.html")">@tag.Title</a>,</li>
+                                                                        <li><a href="@($"{siteConfig.Value?.HttpsUrl}tag/{tag.UrlMeta}-{tag.Id}.html")">@tag.Title</a>,</li>
                                                                     }
                                                                 }
                                                             </ul>
@@ -103,8 +83,13 @@
                                                         <div class="col-6">
                                                             <ul class="post-share">
                                                                 <li><i class="fa fa-share-alt"></i></li>
-                                                                <li><a href="#">Facebook</a>,</li>
-                                                                <li><a href="#"> Twitter</a></li>
+                                                                @{
+                                                                    var postUrl = $"{siteConfig.Value.HttpsUrl}{post.UrlMeta}-{post.Id}.html";
+                                                                    var facebookShare = "http://www.facebook.com/sharer/sharer.php?u=" + postUrl;
+                                                                    var twitterShare = "http://twitter.com/share?url=" + postUrl;
+                                                                    <li><a href="@facebookShare">Facebook</a>,</li>
+                                                                    <li><a href="@twitterShare"> Twitter</a></li>
+                                                                }
                                                             </ul>
                                                         </div>
                                                     </div>

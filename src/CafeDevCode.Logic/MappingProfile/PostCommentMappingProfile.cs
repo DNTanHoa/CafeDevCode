@@ -10,7 +10,7 @@ namespace CafeDevCode.Logic.MappingProfile
     {
         public PostCommentMappingProfile()
         {
-            CreateMap<CreateComment>
+            CreateMap<CreateComment, Comment>();
         }
     }
 }

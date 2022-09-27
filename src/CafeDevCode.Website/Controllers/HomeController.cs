@@ -78,16 +78,13 @@ namespace CafeDevCode.Website.Controllers
             return Content(System.IO.File.ReadAllText(siteMapPath), "text/xml");
         }
 
+        [AllowAnonymous]
         public IActionResult Contact(ContactViewModel model)
         {
             return View(model);
         }
 
-        public IActionResult About()
-        {
-            return View();
-        }
-
+        [AllowAnonymous]
         public async Task<ActionResult> ContactSubmit(ContactViewModel model)
         {
             if (ModelState.IsValid)
@@ -103,6 +100,12 @@ namespace CafeDevCode.Website.Controllers
                 return View("~/Views/Home/Contact.cshtml", model);
             }
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
         }
     }
 }

@@ -3,8 +3,16 @@
 @inject IOptions<ContactInfoConfig> contactInfoConfig
 @model ContactViewModel
 
+@section Header {
+    @{
+        var headerModel = new HeaderMetaViewModel();
+        headerModel.SetData("Liên hệ - Cafe Dev Code", "cafe dev, code, code fun, daily code", "Liên hệ với cafe dev code", "", "");
+        @await Html.PartialAsync("~/Views/Partial/HeaderMeta.cshtml", headerModel);
+    }
+}
+
 <div class="heading-page header-text">
-    <section class="page-heading">
+    <section class="page-heading m-0">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -87,11 +95,11 @@
                                 <div class="content">
                                     <ul>
                                         <li>
-                                            <h5>@contactInfoConfig.Value.PhoneNumber</h5>
+                                            <a class="h5 text-dark" href="tel:035975402">@contactInfoConfig.Value.PhoneNumber</a>
                                             <span>ĐIỆN THOẠI</span>
                                         </li>
                                         <li>
-                                            <h5>@contactInfoConfig.Value.Email</h5>
+                                            <a class="h5 text-dark" href="mailto:cafedevcode@gmail.com">@contactInfoConfig.Value.Email</a>
                                             <span>EMAIL</span>
                                         </li>
                                         <li>
