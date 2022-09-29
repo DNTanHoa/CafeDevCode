@@ -113,7 +113,7 @@ namespace CafeDevCode.Logic.Queries.Implement
 
         public List<CommentModel> GetTreeList(int postId, int videoId)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
