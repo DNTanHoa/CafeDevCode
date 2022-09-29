@@ -28,6 +28,7 @@ namespace CafeDevCode.Logic.Queries.Implement
               .ToList();
         }
 
+
         public Task<List<CommentModel>> GetAllAsync()
         {
             return database.Comments
@@ -108,6 +109,11 @@ namespace CafeDevCode.Logic.Queries.Implement
                 TotalItem = commentCount,
                 TotalPage = (int)Math.Ceiling((double)commentCount / (query.PageSize ?? 20))
             });
+        }
+
+        public List<CommentModel> GetTreeList(int postId, int videoId)
+        {
+            
         }
     }
 }
