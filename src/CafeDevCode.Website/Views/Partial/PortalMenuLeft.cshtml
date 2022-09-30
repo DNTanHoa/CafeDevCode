@@ -7,7 +7,7 @@
 @inject IOptions<SiteConfig> siteConfig
 
 <div class="sidebar">
-    <div class="row">
+    <div class="row mb-md-0" style="margin-bottom: 50px;">
         <div class="col-lg-12">
             <div class="sidebar-item search">
                 <form id="search_form" name="gs" method="GET" action="#">
@@ -27,12 +27,12 @@
                             foreach (var post in posts)
                             {
                                 var postUrl = $"{siteConfig.Value?.HttpsUrl}danh-muc/{post.UrlMeta}-{post.Id}.html";
-                                <li>
-                                    <a href="@postUrl">
-                                        <h5>@post.Title</h5>
-                                        <span>@post.PostDate.GetValueOrDefault().ToString("yyyy, MMM, dd")</span>
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="@postUrl">
+                                            <h5>@post.Title</h5>
+                                            <span>@post.PostDate.GetValueOrDefault().ToString("yyyy, MMM, dd")</span>
+                                        </a>
+                                    </li>
                             }
                         }
                     </ul>
@@ -51,7 +51,7 @@
                             foreach(var category in categories) 
                             {
                                 var categoryUrl = $"{siteConfig.Value?.HttpsUrl}danh-muc/{category.UrlMeta}-{category.Id}.html";
-                                <li><a href="@categoryUrl">@category.Title</a></li>
+                                    <li><a href="@categoryUrl">@category.Title</a></li>
                             }
                         }
                     </ul>
@@ -70,7 +70,7 @@
                             foreach (var tag in tags)
                             {
                                 var tagUrl = $"{siteConfig.Value?.HttpsUrl}tag/{tag.UrlMeta}-{tag.Id}.html";
-                                <li><a href="@tagUrl">@tag.Title</a></li>
+                                    <li><a href="@tagUrl">@tag.Title</a></li>
                             }
                         }
                     </ul>
