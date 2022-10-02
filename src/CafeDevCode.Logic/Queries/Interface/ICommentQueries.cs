@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CafeDevCode.Ultils.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace CafeDevCode.Logic.Queries.Interface
         List<CommentModel> GetAll();
         List<CommentModel> GetByPostId(int postId);
         List<CommentModel> GetByVideoId(int videoId);
-        List<CommentModel> GetTreeList(int postId, int videoId);
+        IEnumerable<TreeList<CommentModel>> GetTreeList(int postId, int videoId);
         CommentModel? GetDetail(int id);
         Task<CommentModel?> GetDetailAsync(int id);
         Task<BasePagingData<CommentModel>> GetPagingAsync(BaseQuery query);

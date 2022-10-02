@@ -1,5 +1,7 @@
 ﻿using CafeDevCode.Database.Entities;
 using CafeDevCode.Logic.Queries.Interface;
+using CafeDevCode.Ultils.Extensions;
+using CafeDevCode.Ultils.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -111,9 +113,14 @@ namespace CafeDevCode.Logic.Queries.Implement
             });
         }
 
-        public List<CommentModel> GetTreeList(int postId, int videoId)
+        public IEnumerable<TreeList<CommentModel>> GetTreeList(int postId, int videoId)
         {
-            throw new NotImplementedException();
+            var data = database.Comments
+             .Where(x => (x.VideoId == videoId || x.PostId == postId) &&
+                         x.IsDeleted != true)
+             .Select(x => mapper.Map<CommentModel>(x));
+            var tree = data.GenerateTree(x => x.Id, x => x.ParentId, null);
+            return tree;
         }
     }
 }

@@ -2,11 +2,10 @@
 @using CafeDevCode.Ultils.Model
 
 @model CommentTreeViewModel
-
-if(Model != null &&
-   Model.Any()) 
-{
-    @{
+@{
+    if(Model != null &&
+       Model.Collection.Any()) 
+    {
         var className = Model.IsRoot == true ? "" : "ms-3";
 
         <ul class="@className">
@@ -16,7 +15,7 @@ if(Model != null &&
                     item.Childrens.Any())
                 {
                     <li>
-                        <div class="d-flex justify-content-around">
+                        <div class="d-flex justify-content-start">
                             <div>
                                 <img src="assets/images/comment-author-01.jpg" alt="">
                             </div>
@@ -32,7 +31,7 @@ if(Model != null &&
                 else
                 {
                     <li>
-                        <div class="d-flex justify-content-around">
+                        <div class="d-flex justify-content-start">
                             <div>
                                 <img src="assets/images/comment-author-01.jpg" alt="">
                             </div>
@@ -47,52 +46,10 @@ if(Model != null &&
             }
         </ul>
     }
-}
-else
-{
+    else
+    {
 
+    }
 }
-<ul>
-    <li>
-        <div class="d-flex justify-content-around">
-            <div>
-                <img src="assets/images/comment-author-01.jpg" alt="">
-            </div>
-            <div class="right-content ms-2">
-                <h5>Charles Kate<span>May 16, 2020</span></h5>
-                <p style="font-size: 14px;">Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
-                <a href="#" style="font-size: 14px; color: #f48840;">Trả lời</a>
-            </div>
-        </div>
-        <hr class="my-3" />
-        <ul class="ms-3">
-            <li>
-                <div class="d-flex justify-content-around">
-                    <div>
-                        <img src="assets/images/comment-author-01.jpg" alt="">
-                    </div>
-                    <div class="right-content ms-2">
-                        <h5>Charles Kate<span>May 16, 2020</span></h5>
-                        <p style="font-size: 14px;">Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
-                        <a href="#" style="font-size: 14px; color: #f48840;">Trả lời</a>
-                    </div>
-                </div>
-                <hr class="my-3" />
-                <ul class="ms-3">
-                    <li>
-                        <div class="d-flex justify-content-around">
-                            <div>
-                                <img src="assets/images/comment-author-01.jpg" alt="">
-                            </div>
-                            <div class="right-content ms-2">
-                                <h5>Charles Kate<span>May 16, 2020</span></h5>
-                                <p style="font-size: 14px;">Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
-                                <a href="#" style="font-size: 14px; color: #f48840;">Trả lời</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-</ul>
+
+

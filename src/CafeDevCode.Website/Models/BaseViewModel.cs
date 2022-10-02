@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CafeDevCode.Website.Models
 {
@@ -11,7 +12,7 @@ namespace CafeDevCode.Website.Models
         public void SetBaseFromContext(HttpContext context)
         {
             this.IpAddress = context.Connection?.RemoteIpAddress?.ToString();
-            this.UserName = context.User?.Claims?.FirstOrDefault(x => x.Type == nameof(UserName))?.Value;
+            this.UserName = context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
             this.RequestId = context.Connection?.Id;
         }
     }

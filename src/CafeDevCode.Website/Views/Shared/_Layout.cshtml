@@ -46,7 +46,9 @@
     </header>
     @await Html.PartialAsync("~/Views/Partial/PortalSocialLink.cshtml")
 
-    @RenderBody()
+    <div style="margin-bottom: 80px;">
+        @RenderBody()
+    </div>
 
     @await Html.PartialAsync("~/Views/Partial/PortalFooter.cshtml")
 

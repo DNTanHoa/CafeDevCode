@@ -1,8 +1,12 @@
-﻿@using CafeDevCode.Logic.Shared.Configs
+﻿@using CafeDevCode.Logic.Queries.Interface
+@using CafeDevCode.Logic.Shared.Configs
 @using CafeDevCode.Logic.Shared.Models
 @using Microsoft.Extensions.Options
+@using System.Security.Claims
 @model PostDetailModel
 @inject IOptions<SiteConfig> siteConfig
+@inject IHttpContextAccessor httpContextAccessor
+@inject ICommentQueries commentQueries
 
 @section Header {
     @{
@@ -63,8 +67,8 @@
                                                         var postUrl = $"{siteConfig.Value.HttpsUrl}{Model.UrlMeta}-{Model.Id}.html";
                                                         var facebookShare = "http://www.facebook.com/sharer/sharer.php?u=" + postUrl;
                                                         var twitterShare = "http://twitter.com/share?url=" + postUrl;
-                                                            <li><a href="@facebookShare">Facebook</a>,</li>
-                                                            <li><a href="@twitterShare"> Twitter</a></li>
+                                                        <li><a href="@facebookShare">Facebook</a>,</li>
+                                                        <li><a href="@twitterShare"> Twitter</a></li>
                                                     }
                                                 </ul>
                                             </div>
@@ -76,49 +80,54 @@
                         <div class="col-lg-12">
                             <div class="sidebar-item comments">
                                 <div class="sidebar-heading">
-                                    <h2>@Model.TotalComment bình luận</h2>
+                                    <h2 class="mb-2">@Model.TotalComment bình luận</h2>
                                 </div>
                                 <div class="content">
-                                    
+                                    @{
+                                        var comments = commentQueries.GetTreeList(Model.Id, 0);
+                                        var treeViewModel = new CommentTreeViewModel()
+                                        {
+                                            IsRoot = true,
+                                            Collection = comments
+                                        };
+                                        @await Html.PartialAsync("~/Views/Comment/Tree.cshtml", treeViewModel);
+                                    }
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="sidebar-item submit-comment">
+                            <div class="sidebar-item submit-comment mt-2">
                                 <div class="sidebar-heading mb-3">
-                                    <h2>Bình luận</h2>
-                                    
+                                    <h2 class="mb-2">Bình luận</h2>
                                 </div>
                                 <div class="content">
-                                    <form id="comment" action="#" method="post">
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12">
-                                                <fieldset>
-                                                    <input name="name" type="text" id="name" placeholder="Your name" required="">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <fieldset>
-                                                    <input name="email" type="text" id="email" placeholder="Your email" required="">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <fieldset>
-                                                    <input name="subject" type="text" id="subject" placeholder="Subject">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <button type="submit" id="form-submit" class="main-button">Submit</button>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    @{
+                                        var userName = httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value;
+                                        @if (!string.IsNullOrEmpty(userName))
+                                        {
+                                            <form id="comment" asp-action="CreatePostComment" asp-controller="Comment">
+                                                <input type="hidden" name="PostId" id="PostId" value="@Model.Id"/>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <fieldset>
+                                                            <textarea name="Content" rows="4" id="Content" placeholder="Nhập bình luận của bạn" required=""></textarea>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <fieldset>
+                                                            <button type="submit" id="form-submit" class="main-button">Bình luận</button>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        }
+                                        else 
+                                        {
+                                            var url = $"{siteConfig.Value.HttpsUrl}{Model.UrlMeta}-{Model.Id}.html";
+                                            <p style="font-size: 18px; font-weight: bold;">Bạn vui lòng <a asp-action="LoginPortal" asp-controller="User" asp-route-returnUrl="@url" style="color: #f48840;">đăng nhập</a> để bình luận</p>
+                                        }
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>

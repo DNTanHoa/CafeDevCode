@@ -7,6 +7,7 @@ using CafeDevCode.Logic.Shared.Models;
 using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Website.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CafeDevCode.Website.Controllers
@@ -14,12 +15,15 @@ namespace CafeDevCode.Website.Controllers
     public class CommentController : Controller
     {
         private readonly ICommentQueries commentQueries;
+        private readonly IPostQueries postQueries;
         private readonly IMediator mediator;
 
         public CommentController(ICommentQueries commentQueries,
+            IPostQueries postQueries,
             IMediator mediator)
         {
             this.commentQueries = commentQueries;
+            this.postQueries = postQueries;
             this.mediator = mediator;
         }
 
@@ -85,6 +89,16 @@ namespace CafeDevCode.Website.Controllers
             };
             var result = await mediator.Send(command);
             return Json(new { success = result.Success, message = result.Messages });
+        }
+
+        [Authorize]
+        public async Task<ActionResult> CreatePostComment(CommentViewModel model)
+        {
+            model.SetBaseFromContext(HttpContext);
+            var command = model.ToCreateCommand();
+            var commandResult = new BaseCommandResultWithData<Comment>();
+            commandResult = await mediator.Send(command);
+            return RedirectToAction("DetailPortal", "Post", new { Id = model.PostId });
         }
     }
 }

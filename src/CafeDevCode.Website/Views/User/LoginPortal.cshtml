@@ -32,6 +32,7 @@
                                 </div>
                                 <div class="content">
                                     <form asp-action="LoginPortalSubmit" method="post">
+                                        <input type="hidden" asp-for="ReturnUrl" />
                                         @{
                                             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
                                             {

@@ -14,6 +14,7 @@ namespace CafeDevCode.Logic
         public static IServiceCollection AddQueries(this IServiceCollection services)
         {
             services.AddScoped<IAuthorQueries, AuthorQueries>();
+            services.AddScoped<ICommentQueries, CommentQueries>();
             services.AddScoped<ICategoryQueries, CategoryQueries>();
             services.AddScoped<IPostQueries, PostQueries>();
             services.AddScoped<ITagQueries, TagQueries>();

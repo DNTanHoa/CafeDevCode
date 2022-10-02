@@ -11,6 +11,11 @@ namespace CafeDevCode.Logic.MappingProfile
     {
         public CommentMappingProfile()
         {
+            CreateMap<Comment, CommentModel>();
+            CreateMap<CreateComment, Comment>()
+                .ForMember(x => x.CreatedAt, y => y.Ignore());
+            CreateMap<UpdateComment, Comment>()
+                .ForMember(x => x.CreatedAt, y => y.Ignore());
         }
     }
 }

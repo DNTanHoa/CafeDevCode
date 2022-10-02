@@ -14,6 +14,6 @@ namespace CafeDevCode.Logic.Shared.Models
         public int? PostId { get; set; }
         public int? VideoId { get; set; }
         public string CreatedBy { get; set; } = string.Empty;
-        public string CreatedAt { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
