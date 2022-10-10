@@ -27,12 +27,12 @@
                             foreach (var post in posts)
                             {
                                 var postUrl = $"{siteConfig.Value?.HttpsUrl}danh-muc/{post.UrlMeta}-{post.Id}.html";
-                                    <li>
-                                        <a href="@postUrl">
-                                            <h5>@post.Title</h5>
-                                            <span>@post.PostDate.GetValueOrDefault().ToString("yyyy, MMM, dd")</span>
-                                        </a>
-                                    </li>
+                                <li>
+                                    <a href="@postUrl">
+                                        <h5>@post.Title</h5>
+                                        <span>@post.PostDate.GetValueOrDefault().ToString("yyyy, MMM, dd")</span>
+                                    </a>
+                                </li>
                             }
                         }
                     </ul>

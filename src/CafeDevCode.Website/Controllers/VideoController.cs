@@ -7,6 +7,7 @@ using CafeDevCode.Logic.Shared.Models;
 using CafeDevCode.Ultils.Extensions;
 using CafeDevCode.Website.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CafeDevCode.Website.Controllers
@@ -23,11 +24,13 @@ namespace CafeDevCode.Website.Controllers
             this.mediator = mediator;
         }
 
+        [AllowAnonymous]
         public IActionResult IndexPortal()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult DetailPortal()
         {
             return View();

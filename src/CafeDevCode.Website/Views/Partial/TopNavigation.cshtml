@@ -9,10 +9,10 @@
         <a class="nav-link" href="@siteConfig.Value.HttpsUrl">Trang chủ</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="@($"{siteConfig.Value.HttpsUrl}gioi-thieu.html")">Về Blog</a>
+        <a class="nav-link" asp-action="IndexPortal" asp-controller="Video">Video</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="IndexPortal" asp-controller="Video">Video</a>
+        <a class="nav-link" href="@($"{siteConfig.Value.HttpsUrl}gioi-thieu.html")">Về Blog</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-action="Contact" asp-controller="Home">Liên hệ</a>
